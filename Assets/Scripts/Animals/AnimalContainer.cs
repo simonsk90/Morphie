@@ -12,7 +12,7 @@ public class AnimalContainer : MonoBehaviour {
 
 
 	void Start () {
-
+        // HEJ
 		a1 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (16,8)", PlayerPrefs.GetString ("animal1") + "Functions") as IAnimalFunctions;
 		a2 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (17,8)", PlayerPrefs.GetString ("animal2") + "Functions") as IAnimalFunctions;
 		a3 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (18,8)", PlayerPrefs.GetString ("animal3") + "Functions") as IAnimalFunctions;
