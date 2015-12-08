@@ -1,0 +1,9 @@
+Sheep
+Chicken
+Cow
+Pig
+Monkey
+Panda
+Cat
+Turtle
+Dino
