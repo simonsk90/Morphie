@@ -4,8 +4,8 @@ using System.Collections;
 public class EnemyController : MonoBehaviour {
 
 
-	public PlayerController player;
-	public CowFunctions cf;
+	private PlayerController player;
+	private CowFunctions cf;
 	private Vector2 screenPos;
 	private bool activated = false;
 	private Transform pickupPrefab;
