@@ -30,9 +30,7 @@ public class EnemyController : MonoBehaviour {
 			}
 			else
 			{
-                Debug.Log(cf);
 				player.Die();
-                Debug.Log("Dead by enemy");
 			}
 		}		
 	}
