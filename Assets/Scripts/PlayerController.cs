@@ -75,7 +75,8 @@ public class PlayerController : MonoBehaviour
 		}
 
 		transform.Translate(Vector2.right * this.speed * Time.deltaTime); //Moving to the right
-		StaminaDecrement();
+        //transform.Translate(Vector2.down * this.speed * Time.deltaTime); //Moving to the right
+        StaminaDecrement();
 
 	}
 

@@ -11,14 +11,17 @@ public class AnimalContainer : MonoBehaviour {
 	private IAnimalFunctions currentAnimal;
 
 
-	void Start () {
-        // HEJ
-		a1 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (16,8)", PlayerPrefs.GetString ("animal1") + "Functions") as IAnimalFunctions;
-		a2 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (17,8)", PlayerPrefs.GetString ("animal2") + "Functions") as IAnimalFunctions;
-		a3 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (18,8)", PlayerPrefs.GetString ("animal3") + "Functions") as IAnimalFunctions;
-		a4 = UnityEngineInternal.APIUpdaterRuntimeServices.AddComponent(gameObject, "Assets/Scripts/Animals/AnimalContainer.cs (19,8)", PlayerPrefs.GetString ("animal4") + "Functions") as IAnimalFunctions;
+    void Awake()
+    {
+        a1 = gameObject.AddComponent(System.Type.GetType(PlayerPrefs.GetString("animal1") + "Functions")) as IAnimalFunctions;
+        a2 = gameObject.AddComponent(System.Type.GetType(PlayerPrefs.GetString("animal2") + "Functions")) as IAnimalFunctions;
+        a3 = gameObject.AddComponent(System.Type.GetType(PlayerPrefs.GetString("animal3") + "Functions")) as IAnimalFunctions;
+        a4 = gameObject.AddComponent(System.Type.GetType(PlayerPrefs.GetString("animal4") + "Functions")) as IAnimalFunctions;
 
-		currentAnimal = a1;
+        currentAnimal = a1;
+    }
+
+    void Start () {
 
 		Animal1Shape();
 	}

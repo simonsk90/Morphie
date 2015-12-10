@@ -48,15 +48,16 @@ public class HelperFunctions : MonoBehaviour {
 				}
 			}
 		}
-		return onGround;
+        Debug.Log("ONG" + onGround);
+        return onGround;
 	}
 	
 	public bool CheckOnCeiling()
 	{
 		bool onGround = false;
 		Vector2 startPoint = player.transform.position;
-		startPoint.x = GetComponent<Collider2D>().bounds.min.x + 0.1f;
-		startPoint.y = GetComponent<Collider2D>().bounds.max.y;
+		startPoint.x = player.GetComponent<Collider2D>().bounds.min.x + 0.1f;
+		startPoint.y = player.GetComponent<Collider2D>().bounds.max.y;
 		RaycastHit2D hit = Physics2D.Raycast(startPoint, Vector2.up, 0.020f, mask); //Maybe change distance if model is changed
 		
 		if (hit.collider != null)
@@ -66,7 +67,7 @@ public class HelperFunctions : MonoBehaviour {
 		
 		else
 		{
-			startPoint.x = GetComponent<Collider2D>().bounds.max.x-0.1f;
+			startPoint.x = player.GetComponent<Collider2D>().bounds.max.x-0.1f;
 			hit = Physics2D.Raycast(startPoint, Vector2.up, 0.020f, mask); //Maybe change distance if model is changed
 			
 			if(hit.collider != null)
@@ -74,6 +75,7 @@ public class HelperFunctions : MonoBehaviour {
 				onGround = true;
 			}
 		}
+        Debug.Log("ONC" + onGround);
 		return onGround;
 	}
 	

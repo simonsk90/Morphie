@@ -95,7 +95,7 @@ public class ObjectsController : MonoBehaviour {
 			{
 				foreach (GameObject go in activeObjects)
 				{
-					if (cam.WorldToScreenPoint(go.transform.position).x < 0f)
+					if (cam.WorldToScreenPoint(go.transform.position).x < -20f)
 					{
 						passedObjects.Add(go);
 						yield return go;

@@ -4,8 +4,8 @@ using System.Collections;
 public class EnemyController : MonoBehaviour {
 
 
-	private PlayerController player;
-	private CowFunctions cf;
+	public PlayerController player;
+	public CowFunctions cf;
 	private Vector2 screenPos;
 	private bool activated = false;
 	private Transform pickupPrefab;
@@ -30,7 +30,9 @@ public class EnemyController : MonoBehaviour {
 			}
 			else
 			{
+                Debug.Log(cf);
 				player.Die();
+                Debug.Log("Dead by enemy");
 			}
 		}		
 	}

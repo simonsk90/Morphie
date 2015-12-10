@@ -10,10 +10,11 @@ public class TurtleFunctions : MonoBehaviour, IAnimalFunctions {
 	void Awake()
 	{
 		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
 	
 	void Start () {	
-		enemies = GameObject.FindGameObjectsWithTag("Enemy");
+		
 	}
 	
 	public void ChangeShape()
@@ -55,7 +56,7 @@ public class TurtleFunctions : MonoBehaviour, IAnimalFunctions {
 			}
 		}
 
-		while (timer < 2f)
+		while (timer < 8f)
 		{
 			timer += Time.deltaTime;
 			yield return null;

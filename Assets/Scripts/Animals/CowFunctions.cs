@@ -21,7 +21,6 @@ public class CowFunctions : MonoBehaviour, IAnimalFunctions {
 	{
 		Vector2 newSize = new Vector2(1.08f, 0.65f);
 		player.helperFunctions.CorrectShapePosition(3, newSize);
-
 	}
 
 	public void LeaveShape()
