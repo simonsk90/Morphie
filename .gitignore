@@ -28,5 +28,8 @@ fj2ios/
 # Unity3D generated meta files
 *.pidb.meta
 
+#My own ignore files
+commit.bat
+
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
