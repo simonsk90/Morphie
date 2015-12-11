@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerController : MonoBehaviour 
 {
@@ -20,16 +21,19 @@ public class PlayerController : MonoBehaviour
 	public bool abilitiesLocked = false;
 	public HelperFunctions helperFunctions;
 	public ObjectsController objectsController;
-	//private float testTimer = 0f;
+    private Action updateFunction;
+    private Action abilityFunction;
 
-	void Awake ()
+    void Awake ()
 	{
 		ac = gameObject.AddComponent<AnimalContainer>();
 		anim = GetComponent<Animator>();
 		cam = GameObject.Find("Main Camera").GetComponent<CameraController>();
 		helperFunctions = GameObject.Find("Factory").GetComponent<HelperFunctions>();
 		objectsController = GameObject.Find("Factory").GetComponent<ObjectsController>();
-	}
+        updateFunction = () => ac.Animal1Update();
+        abilityFunction = () => ac.Animal1Ability();
+    }
 
 	void Start () 
 	{
@@ -47,35 +51,35 @@ public class PlayerController : MonoBehaviour
 
 		transform.position = checkpoint;
 		cam.PositionCamera();
-
-
-
 	}
 
 	void Update () 
 	{
 		//Apply animals UpdateFunctions
-		switch (shape)
-		{
-		case 1:
-			ac.Animal1Update();
-			break;
+        //UNDGÅ AT GÅ IGENNEM EN SWITCH HER HVIS MULIGT
+
+		//switch (shape)
+		//{
+		//case 1:
+		//	ac.Animal1Update();
+		//	break;
 			
-		case 2:	
-			ac.Animal2Update();
-			break;
+		//case 2:	
+		//	ac.Animal2Update();
+		//	break;
 			
-		case 3:
-			ac.Animal3Update();
-			break;
+		//case 3:
+		//	ac.Animal3Update();
+		//	break;
 			
-		case 4:
-			ac.Animal4Update();
-			break;
-		}
+		//case 4:
+		//	ac.Animal4Update();
+		//	break;
+		//}
+
+        updateFunction();
 
 		transform.Translate(Vector2.right * this.speed * Time.deltaTime); //Moving to the right
-        //transform.Translate(Vector2.down * this.speed * Time.deltaTime); //Moving to the right
         StaminaDecrement();
 
 	}
@@ -84,24 +88,25 @@ public class PlayerController : MonoBehaviour
 	{
 		if (!this.isDead && !abilitiesLocked)
 		{
-			switch (shape)
-			{
-			case 1:
-				ac.Animal1Ability();
-				break;
+			//switch (shape)
+			//{
+			//case 1:
+			//	ac.Animal1Ability();
+			//	break;
 				
-			case 2:
-				ac.Animal2Ability();
-				break;
+			//case 2:
+			//	ac.Animal2Ability();
+			//	break;
 				
-			case 3:
-				ac.Animal3Ability();
-				break;
+			//case 3:
+			//	ac.Animal3Ability();
+			//	break;
 				
-			case 4:
-				ac.Animal4Ability();
-				break;
-			}
+			//case 4:
+			//	ac.Animal4Ability();
+			//	break;
+			//}
+            abilityFunction();
 		}
 	}
 
@@ -132,19 +137,27 @@ public class PlayerController : MonoBehaviour
 			{
 			case 1:
 				ac.Animal1Shape();
+                updateFunction = () => ac.Animal1Update();
+                abilityFunction = () => ac.Animal1Ability();
 				break;
 				
 			case 2:
 				ac.Animal2Shape();
-				break;
+                updateFunction = () => ac.Animal2Update();
+                abilityFunction = () => ac.Animal2Ability();
+                break;
 				
 			case 3:
 				ac.Animal3Shape();
-				break;	
+                updateFunction = () => ac.Animal3Update();
+                abilityFunction = () => ac.Animal3Ability();
+                break;	
 				
 			case 4:
 				ac.Animal4Shape();
-				break;		
+                updateFunction = () => ac.Animal4Update();
+                abilityFunction = () => ac.Animal4Ability();
+                break;		
 			}
 		}
 	}	

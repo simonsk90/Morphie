@@ -30,11 +30,11 @@ public class ObjectsController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		cam = player.cam.camera;
+		cam = player.cam.cam;
 
 		DeactivatePassedObjects();
 
-		Debug.Log (player.cam.camera.pixelWidth);
+		Debug.Log (player.cam.cam.pixelWidth);
 		Debug.Log (cam.WorldToScreenPoint(player.transform.position));
 
 		foreach (GameObject go in activeObjects) //Deactivate inc objects

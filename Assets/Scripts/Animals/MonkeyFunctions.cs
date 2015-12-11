@@ -8,7 +8,6 @@ public class MonkeyFunctions : MonoBehaviour, IAnimalFunctions
     private bool cooldown;
     private List<Vector2> positionList = new List<Vector2>();
 	private List<Bounds> boundsList = new List<Bounds>();
-	private int trackIndex = 9;
 	public bool reversing = false;
 
 

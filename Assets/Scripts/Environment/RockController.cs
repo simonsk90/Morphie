@@ -10,8 +10,6 @@ public class RockController : MonoBehaviour {
 	public float speed;
 	public bool moving = false;
 
-	private LayerMask mask = 1 << 4;
-
 
     void OnTriggerStay2D(Collider2D coll)
     {

@@ -6,11 +6,11 @@ public class CameraController : MonoBehaviour {
 	private PlayerController player;
 	public float speed;
 	public bool reverse = false;
-	public Camera camera;
+	public Camera cam;
 
 	void Awake()
 	{
-		camera = GetComponent<Camera>();
+		cam = GetComponent<Camera>();
 		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
 		speed = player.speed;
 		//PositionCamera(); //SKAL REWORKES

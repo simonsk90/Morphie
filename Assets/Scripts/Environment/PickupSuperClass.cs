@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 abstract public class PickupSuperClass : MonoBehaviour {
 
@@ -10,18 +9,20 @@ abstract public class PickupSuperClass : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Player" && player.anim.GetInteger("shape") != 9)
 		{
-			this.GetComponent<Renderer>().enabled = false;
-			this.GetComponent<Collider2D>().enabled = false;
+			GetComponent<Renderer>().enabled = false;
+			GetComponent<Collider2D>().enabled = false;
 			
-			this.Effect();
-			//StartCoroutine(MakeHaste());
+			Effect();
 		}
 	}
 
 	public abstract void Effect();
 
 	// Use this for initialization
-	void Start () {
-		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
+
+    void Awake()
+    {
+        player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+    }
+
 }
