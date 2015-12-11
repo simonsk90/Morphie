@@ -1,0 +1,13 @@
+Ret edge colliders så de passer.
+
+Ret så bagenden af player ikke kan collide med ground/rock ved f.eks. fald. (Men hvordan skal disruption så fungere?)
+
+Check endnu en gang om correctShapePosition nu også virker som før optimeringen.
+
+Overvej om cam måske altid skal bevære med positioncam i stedet for en speed.
+
+tilføj true/false parameter til dino ToggleDetector()
+
+Ret correctShapePosition så bounds.max.x altid vil være det samme sted. Dette vil måske også slippe for de åndsvage detectors
+
+

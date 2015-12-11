@@ -1,0 +1,1 @@
+Objects are being set inactive a little too soon sometimes, after they have been passed.
