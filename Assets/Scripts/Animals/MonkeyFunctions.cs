@@ -101,14 +101,14 @@ public class MonkeyFunctions : MonoBehaviour, IAnimalFunctions
 
 	private void ReactivatePassedObjects(Vector2 target)
 	{
-		List<GameObject> oldObjects = new List<GameObject>();
+		//List<GameObject> oldObjects = new List<GameObject>();
 
 		foreach (GameObject go in player.objectsController.inactiveObjects)
 		{
-			if (go.transform.position.x > target.x - 5f)
+			if (go.transform.position.x > target.x - 5f && go.tag != "Enemy" && go.tag != "Pickup" && go.tag != "Untagged")
 			{
 				go.SetActive(true);
-				oldObjects.Add(go);
+				//oldObjects.Add(go);
 				player.objectsController.activeObjects.Insert(0, go);
 			}
 		}
