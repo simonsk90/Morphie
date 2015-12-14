@@ -11,27 +11,13 @@ public class EnemySuperclass : MonoBehaviour {
     {
         player = GameObject.Find("Stickman").GetComponent<PlayerController>();
     }
-	
-    private bool UnitWithinScreenSpace(Vector2 unitScreenPos)
-    {
-        if (
-           (unitScreenPos.x < Screen.width && unitScreenPos.y < Screen.height) &&
-           (unitScreenPos.x > 0f && unitScreenPos.y > 0f))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
 
     public void MoveLeftIfActive()
     {
         if (!activated)
         {
             screenPos = Camera.main.WorldToScreenPoint(transform.position);
-            if (UnitWithinScreenSpace(screenPos))
+            if (player.helperFunctions.UnitWithinScreenSpace(screenPos))
             {
                 transform.Translate(Vector2.right * -speed * Time.deltaTime);
                 activated = true;

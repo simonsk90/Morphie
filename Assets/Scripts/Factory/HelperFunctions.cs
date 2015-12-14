@@ -180,5 +180,19 @@ public class HelperFunctions : MonoBehaviour {
 		
 		setCooldown(false);
 	}
-	
+
+    public bool UnitWithinScreenSpace(Vector2 unitScreenPos)
+    {
+        if (
+           (unitScreenPos.x < Screen.width && unitScreenPos.y < Screen.height) &&
+           (unitScreenPos.x > 0f && unitScreenPos.y > 0f))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
