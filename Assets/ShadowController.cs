@@ -25,7 +25,12 @@ public class ShadowController : MonoBehaviour {
         }
         else
         {
-
+            
         }
 	}
+
+    private void Shrink()
+    {
+
+    }
 }

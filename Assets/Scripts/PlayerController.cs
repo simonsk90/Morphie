@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -194,15 +195,15 @@ public class PlayerController : MonoBehaviour
 		}
 		lives--;
 		PlayerPrefs.SetInt("lives", lives);
-		string lname = Application.loadedLevelName;
+		string lname = SceneManager.GetActiveScene().name;
 
 		if (lives <= 0)
 		{
-			Application.LoadLevel("LevelOne");
+			SceneManager.LoadScene("LevelOne");
 		}
 		else 
 		{
-			Application.LoadLevel(lname);
+			SceneManager.LoadScene(lname);
 		}
 	}
 

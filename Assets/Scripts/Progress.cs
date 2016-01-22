@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class Progress : MonoBehaviour { // Rename properly
@@ -79,13 +80,13 @@ public class Progress : MonoBehaviour { // Rename properly
 		}
 
 		if(Input.GetKeyDown(KeyCode.R))
-			Application.LoadLevel(Application.loadedLevel);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
 		if (Input.GetKeyDown(KeyCode.K))
-			Application.LoadLevel("AnimalSelecter");
+            SceneManager.LoadScene("AnimalSelecter");
 
 		if (Input.GetKeyDown(KeyCode.L))
-			Application.LoadLevel ("LevelSelecter");
+            SceneManager.LoadScene("LevelSelecter");
 
 		if (Input.GetKeyDown(KeyCode.U))
 		{

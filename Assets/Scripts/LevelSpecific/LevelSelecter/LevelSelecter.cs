@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelSelecter : MonoBehaviour {
@@ -19,7 +20,7 @@ public class LevelSelecter : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
-		Application.LoadLevel("AnimalSelecter");
+		SceneManager.LoadScene("AnimalSelecter");
 		PlayerPrefs.SetString ("animalSelecterLevel", this.gameObject.name);
 	}
 }

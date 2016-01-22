@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class StartLevel : MonoBehaviour {
 
 
 	void OnMouseDown() {
-		Application.LoadLevel(PlayerPrefs.GetString("animalSelecterLevel"));
+		SceneManager.LoadScene(PlayerPrefs.GetString("animalSelecterLevel"));
 	}
 	
 	// Use this for initialization

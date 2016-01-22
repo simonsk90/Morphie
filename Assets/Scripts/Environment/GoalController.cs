@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class GoalController : MonoBehaviour {
@@ -8,14 +9,14 @@ public class GoalController : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Player")
 		{
-			if (Application.loadedLevelName == "LevelOne")
+			if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("LevelOne"))
 			{
 				PlayerPrefs.SetString("PandaUnlocked", "true");
 				PlayerPrefs.SetString("CatUnlocked", "true");
 				PlayerPrefs.SetString("TurtleUnlocked", "true");
 				PlayerPrefs.SetString ("LevelTwoUnlocked", "true");
 			}
-			else if (Application.loadedLevelName == "LevelTwo")
+			else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("LevelTwo"))
 			{
 				PlayerPrefs.SetString("MonkeyUnlocked", "true");
 				PlayerPrefs.SetString ("LevelThreeUnlocked", "true");
@@ -23,7 +24,8 @@ public class GoalController : MonoBehaviour {
 
 			PlayerPrefs.SetFloat ("checkpointX", 0);
 			PlayerPrefs.SetFloat ("checkpointY", 0);
-			Application.LoadLevel("LevelSelecter");
+            //Application.LoadLevel("LevelSelecter");
+            SceneManager.LoadScene("LevelSelecter");
 		}	
 	}
 
