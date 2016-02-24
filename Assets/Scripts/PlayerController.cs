@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
 
 		//this.invulnerable = false;
 		this.GetComponent<Rigidbody2D>().isKinematic = false;
-		this.GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or play will get stock in environments not dying
+		this.GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or player will get stock in environments not dying
 		this.GetComponent<Collider2D>().enabled = true;
 
 		if (!isDead)
@@ -168,22 +168,22 @@ public class PlayerController : MonoBehaviour
 		stamina = stamina + Time.deltaTime * 5;
 		if (stamina >= 100 && isDead == false)
 		{
-			Die();
-		}
+            StartCoroutine(Die2());
+        }
 	}
 	
-	public void Die()
-	{
-		if (!invulnerable && !this.isDead)
-		{ 
-			this.GetComponent<Rigidbody2D>().isKinematic = true;
-			isDead = true;
-			speed = 0f;
-			anim.SetBool("isDead", true);
-			cam.speed = 0f;
-			StartCoroutine(PlayDead());
-		}
-	}
+	//public void Die()
+	//{
+	//	if (!invulnerable && !this.isDead)
+	//	{ 
+	//		this.GetComponent<Rigidbody2D>().isKinematic = true;
+	//		isDead = true;
+	//		speed = 0f;
+	//		anim.SetBool("isDead", true);
+	//		cam.speed = 0f;
+	//		StartCoroutine(PlayDead());
+ //       }
+	//}
 
 	IEnumerator PlayDead()
 	{
@@ -193,19 +193,51 @@ public class PlayerController : MonoBehaviour
 			timer += Time.deltaTime;
 			yield return null;
 		}
-		lives--;
-		PlayerPrefs.SetInt("lives", lives);
-		string lname = SceneManager.GetActiveScene().name;
+        lives--;
+        PlayerPrefs.SetInt("lives", lives);
+        string lname = SceneManager.GetActiveScene().name;
 
-		if (lives <= 0)
-		{
-			SceneManager.LoadScene("LevelOne");
-		}
-		else 
-		{
-			SceneManager.LoadScene(lname);
-		}
-	}
+        if (lives <= 0)
+        {
+            SceneManager.LoadScene("LevelOne");
+        }
+        else
+        {
+            SceneManager.LoadScene(lname);
+        }
+    }
+
+    public IEnumerator Die2()
+    {
+        if (!invulnerable && !this.isDead)
+        {
+            float timer = 0f;
+            string lname = SceneManager.GetActiveScene().name;
+
+            this.GetComponent<Rigidbody2D>().isKinematic = true;
+            isDead = true;
+            speed = 0f;
+            anim.SetBool("isDead", true);
+            cam.speed = 0f;
+            
+            while (timer < 3f)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            lives--;
+            PlayerPrefs.SetInt("lives", lives);
+
+            if (lives <= 0)
+            {
+                SceneManager.LoadScene("LevelOne");
+            }
+            else
+            {
+                SceneManager.LoadScene(lname);
+            }
+        }
+    }
 
 
 

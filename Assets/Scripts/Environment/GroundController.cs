@@ -9,8 +9,8 @@ public class GroundController : MonoBehaviour {
 	{
 		if (coll.tag == "Player" && !player.invulnerable)
 		{
-			player.Die();
-		}
+            player.StartCoroutine(player.Die2());
+        }
 	}
 	
 	void Start () {

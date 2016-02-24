@@ -15,7 +15,7 @@ public class RockController : MonoBehaviour {
     {
         if (coll.gameObject.tag == "Player" && !player.invulnerable && !moving)
         {
-            player.Die();
+            player.StartCoroutine(player.Die2());
         }
     } 
 

@@ -24,7 +24,7 @@ public class OwlController : EnemySuperclass {
             }
             else
             {
-                player.Die();
+                player.StartCoroutine(player.Die2());
                 speed = 0f;
             }
         }

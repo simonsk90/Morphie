@@ -9,8 +9,8 @@ public class AcidController : MonoBehaviour {
 	{
 		if (coll.gameObject.tag == "Player" && !player.invulnerable)
 		{
-			player.Die();
-		}
+            player.StartCoroutine(player.Die2());
+        }
 		
 	}
 
