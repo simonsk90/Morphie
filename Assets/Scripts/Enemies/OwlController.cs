@@ -27,6 +27,7 @@ namespace Morphie
         {
             if (coll.gameObject.tag == "Player")
             {
+<<<<<<< HEAD
                 if (PlayerController.playerRigidBody.isKinematic == true)
                 {
                     enemyRigidBody.isKinematic = true;
@@ -45,6 +46,10 @@ namespace Morphie
                     StartCoroutine(PlayerController.Die2());
                     speed = 0f;
                 }
+=======
+                player.Die();
+                speed = 0f;
+>>>>>>> parent of 91ce9bc... Added new Die() function
             }
         }
 

@@ -25,7 +25,11 @@ namespace Morphie
 
         void Awake()
         {
+<<<<<<< HEAD
             rockTransform = transform;
+=======
+            player.Die();
+>>>>>>> parent of 91ce9bc... Added new Die() function
         }
 
         // Use this for initialization

@@ -120,6 +120,7 @@ namespace Morphie
 			    //	ac.Animal3Ability();
 			    //	break;
 				
+<<<<<<< HEAD
 			    //case 4:
 			    //	ac.Animal4Ability();
 			    //	break;
@@ -158,6 +159,46 @@ namespace Morphie
                     updateFunction = () => AnimalContainer.Animal1Update();
                     abilityFunction = () => AnimalContainer.Animal1Ability();
 				    break;
+=======
+			//case 4:
+			//	ac.Animal4Ability();
+			//	break;
+			//}
+            abilityFunction();
+		}
+	}
+
+	public void SwitchShape(int newShape)
+	{
+		if (!reverseGravity) 
+		{
+			this.GetComponent<Rigidbody2D>().gravityScale = 1f;
+		} 
+		else 
+		{
+			this.GetComponent<Rigidbody2D>().gravityScale = -1f;
+		}
+
+		this.GetComponent<Rigidbody2D>().mass = 1f;
+
+
+		//this.invulnerable = false;
+		this.GetComponent<Rigidbody2D>().isKinematic = false;
+		this.GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or play will get stock in environments not dying
+		this.GetComponent<Collider2D>().enabled = true;
+
+		if (!isDead)
+		{
+			previousShape = shape;
+			shape = newShape;
+			switch (shape)
+			{
+			case 1:
+				ac.Animal1Shape();
+                updateFunction = () => ac.Animal1Update();
+                abilityFunction = () => ac.Animal1Ability();
+				break;
+>>>>>>> parent of 91ce9bc... Added new Die() function
 				
 			    case 2:
                     AnimalContainer.Animal2Shape();
@@ -171,6 +212,7 @@ namespace Morphie
                     abilityFunction = () => AnimalContainer.Animal3Ability();
                     break;	
 				
+<<<<<<< HEAD
 			    case 4:
                     AnimalContainer.Animal4Shape();
                     updateFunction = () => AnimalContainer.Animal4Update();
@@ -223,6 +265,61 @@ namespace Morphie
                 SceneManager.LoadScene(lname);
             }
         }
+=======
+			case 4:
+				ac.Animal4Shape();
+                updateFunction = () => ac.Animal4Update();
+                abilityFunction = () => ac.Animal4Ability();
+                break;		
+			}
+		}
+	}	
+
+	public void StaminaDecrement()
+	{
+		stamina = stamina + Time.deltaTime * 5;
+		if (stamina >= 100 && isDead == false)
+		{
+			Die();
+		}
+	}
+	
+	public void Die()
+	{
+		if (!invulnerable && !this.isDead)
+		{ 
+			this.GetComponent<Rigidbody2D>().isKinematic = true;
+			isDead = true;
+			speed = 0f;
+			anim.SetBool("isDead", true);
+			cam.speed = 0f;
+			StartCoroutine(PlayDead());
+		}
+	}
+
+	IEnumerator PlayDead()
+	{
+		float timer = 0f;
+		while (timer < 3f)
+		{
+			timer += Time.deltaTime;
+			yield return null;
+		}
+		lives--;
+		PlayerPrefs.SetInt("lives", lives);
+		string lname = SceneManager.GetActiveScene().name;
+
+		if (lives <= 0)
+		{
+			SceneManager.LoadScene("LevelOne");
+		}
+		else 
+		{
+			SceneManager.LoadScene(lname);
+		}
+	}
+
+>>>>>>> parent of 91ce9bc... Added new Die() function
 
         public static IEnumerator Die2()
         {
