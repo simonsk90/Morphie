@@ -1,57 +1,61 @@
 using UnityEngine;
 using System.Collections;
 
-public class BirdFunctions : MonoBehaviour, IAnimalFunctions {
-	
-	private PlayerController player;
-	public bool slowfallBlocked = false;
+namespace Morphie
+{
+    public class BirdFunctions : MonoBehaviour, IAnimalFunctions
+    {
 
-	void Awake()
-	{
-		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
+        //private PlayerController player;
+        public static bool slowfallBlocked = false;
 
-	void Start ()
-	{
-		if (!player.helperFunctions.CheckOnGround(player.gameObject))
-		{
-			transform.position -= transform.up * Time.deltaTime * 0.5f;
-		}
-	}
+        void Awake()
+        {
+            //player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+        }
 
-	public void ChangeShape()
-	{
-		GetComponent<Rigidbody2D>().isKinematic = true;
-		GetComponent<Rigidbody2D>().isKinematic = false;
-		GetComponent<Rigidbody2D>().gravityScale = 0f;
-		slowfallBlocked = false;
+        void Start()
+        {
+            if (!HelperFunctions.CheckOnGround(gameObject))
+            {
+                PlayerController.playerTransform.position -= PlayerController.playerTransform.up * Time.deltaTime * 0.5f;
+            }
+        }
 
-		Vector2 newSize = new Vector2(0.41f, 0.35f);
-		player.helperFunctions.CorrectShapePosition(2, newSize);
-	}
+        public void ChangeShape()
+        {
+            GetComponent<Rigidbody2D>().isKinematic = true;
+            GetComponent<Rigidbody2D>().isKinematic = false;
+            GetComponent<Rigidbody2D>().gravityScale = 0f;
+            slowfallBlocked = false;
 
-	public void LeaveShape()
-	{
+            Vector2 newSize = new Vector2(0.41f, 0.35f);
+            HelperFunctions.CorrectShapePosition(2, newSize);
+        }
 
-	}
+        public void LeaveShape()
+        {
 
-	public void UpdateFunctions()
-	{
-		if (!player.helperFunctions.CheckOnGround(player.gameObject))
-		{
-			if (!slowfallBlocked)
-			{
-				transform.position -= transform.up * Time.deltaTime * 0.5f;
-			}
-		}
-		else if (!player.helperFunctions.CheckOnCeiling())
-		{
-			//transform.position += transform.up * Time.deltaTime * 0.5f;
-		}
-	}
+        }
 
-	public void Ability()
-	{
+        public void UpdateFunctions()
+        {
+            if (!HelperFunctions.CheckOnGround(gameObject))
+            {
+                if (!slowfallBlocked)
+                {
+                    PlayerController.playerTransform.position -= transform.up * Time.deltaTime * 0.5f;
+                }
+            }
+            else if (!HelperFunctions.CheckOnCeiling())
+            {
+                //transform.position += transform.up * Time.deltaTime * 0.5f;
+            }
+        }
 
-	}
+        public void Ability()
+        {
+
+        }
+    }
 }

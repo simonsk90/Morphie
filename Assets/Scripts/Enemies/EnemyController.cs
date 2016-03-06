@@ -1,43 +1,54 @@
 ﻿using UnityEngine;
 
-public class EnemyController : EnemySuperclass {
+namespace Morphie
+{
 
-	private CowFunctions cf;
+    public class EnemyController : EnemySuperclass
+    {
 
-	void OnCollisionEnter2D(Collision2D coll) 
-	{
-		if (coll.gameObject.tag == "Player")
-		{
-			if (player.GetComponent<Rigidbody2D>().isKinematic == true)
-			{
-				GetComponent<Rigidbody2D>().isKinematic = true;
-			}
+        private CowFunctions cf;
 
-			if (player.anim.GetInteger("shape") == 9)
-			{
-                gameObject.SetActive(false);
-			}
-			else if (cf != null && cf.hitting)
-			{
-                gameObject.SetActive(false);
-			}
-			else
-			{
-                player.StartCoroutine(player.Die2());
-                speed = 0f;
-			}
-		}		
-	}
-	
+        void OnCollisionEnter2D(Collision2D coll)
+        {
+            if (coll.gameObject.tag == "Player")
+            {
+                if (PlayerController.playerRigidBody.isKinematic == true)
+                {
+                    enemyRigidBody.isKinematic = true;
+                }
 
-	// Use this for initialization
-	void Start () {
-		cf = GameObject.Find("Stickman").GetComponent<CowFunctions>();
-        speed = 2f;
+                if (PlayerController.anim.GetInteger("shape") == 9)
+                {
+                    enemyGameObject.SetActive(false);
+                }
+                else if (cf != null && cf.hitting)
+                {
+                    enemyGameObject.SetActive(false);
+                }
+                else
+                {
+                    StartCoroutine(PlayerController.Die2());
+                    speed = 0f;
+                }
+            }
+        }
+
+
+        // Use this for initialization
+        void Start()
+        {
+            if (PlayerController.playerGameObject.GetComponent<CowFunctions>() != null)
+            {
+                cf = PlayerController.playerGameObject.GetComponent<CowFunctions>();
+            }
+
+            speed = 2f;
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            MoveLeftIfActive();
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        MoveLeftIfActive();
-	}
 }

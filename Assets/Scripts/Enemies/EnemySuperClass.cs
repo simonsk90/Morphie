@@ -1,31 +1,43 @@
 ﻿using UnityEngine;
 
-public class EnemySuperclass : MonoBehaviour {
+namespace Morphie
+{
 
-    public PlayerController player;
-    public float speed;
-    private Vector2 screenPos;
-    private bool activated = false;
-
-    void Awake()
+    public class EnemySuperclass : MonoBehaviour
     {
-        player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-    }
 
-    public void MoveLeftIfActive()
-    {
-        if (!activated)
+        public PlayerController player;
+        public float speed;
+        private Vector2 screenPos;
+        private bool activated = false;
+        public static GameObject enemyGameObject;
+        public static BoxCollider2D enemyBoxCollider;
+        public static Rigidbody2D enemyRigidBody;
+        public static Transform enemyTransform;
+
+        void Awake()
         {
-            screenPos = Camera.main.WorldToScreenPoint(transform.position);
-            if (player.helperFunctions.UnitWithinScreenSpace(screenPos))
-            {
-                transform.Translate(Vector2.right * -speed * Time.deltaTime);
-                activated = true;
-            }
+            enemyGameObject = gameObject;
+            enemyBoxCollider = enemyGameObject.GetComponent<BoxCollider2D>();
+            enemyRigidBody = enemyGameObject.GetComponent<Rigidbody2D>();
+            enemyTransform = transform;
         }
-        else
+
+        public void MoveLeftIfActive()
         {
-            transform.Translate(Vector2.right * -speed * Time.deltaTime);
+            if (!activated)
+            {
+                screenPos = Camera.main.WorldToScreenPoint(enemyTransform.position);
+                if (HelperFunctions.UnitWithinScreenSpace(screenPos))
+                {
+                    enemyTransform.Translate(Vector2.right * -speed * Time.deltaTime);
+                    activated = true;
+                }
+            }
+            else
+            {
+                enemyTransform.Translate(Vector2.right * -speed * Time.deltaTime);
+            }
         }
     }
 }

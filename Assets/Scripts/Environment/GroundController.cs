@@ -1,20 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GroundController : MonoBehaviour {
+namespace Morphie
+{
 
-    PlayerController player;
-
-	void OnTriggerStay2D(Collider2D coll)
-	{
-		if (coll.tag == "Player" && !player.invulnerable)
-		{
-            player.StartCoroutine(player.Die2());
+    public class GroundController : MonoBehaviour
+    {
+        void OnTriggerStay2D(Collider2D coll)
+        {
+            if (coll.tag == "Player" && !PlayerController.invulnerable)
+            {
+                StartCoroutine(PlayerController.Die2());
+            }
         }
-	}
-	
-	void Start () {
-	    player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
-	
+    }
 }

@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface IAnimalFunctions
+namespace Morphie
 {
-	void ChangeShape();
-	void UpdateFunctions();
-	void Ability();
-	void LeaveShape();
+
+    public interface IAnimalFunctions
+    {
+        void ChangeShape();
+        void UpdateFunctions();
+        void Ability();
+        void LeaveShape();
+    }
 }

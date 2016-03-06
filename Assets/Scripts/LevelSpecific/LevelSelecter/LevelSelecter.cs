@@ -2,25 +2,32 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class LevelSelecter : MonoBehaviour {
+namespace Morphie
+{
+    public class LevelSelecter : MonoBehaviour
+    {
 
-	// Use this for initialization
-	void Start () {
-	
-		if (PlayerPrefs.GetString(this.gameObject.name + "Unlocked") != "true" && this.gameObject.name != "LevelOne") 
-		{
-			GetComponent<Renderer>().enabled = false;
-		}
+        // Use this for initialization
+        void Start()
+        {
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+            if (PlayerPrefs.GetString(this.gameObject.name + "Unlocked") != "true" && this.gameObject.name != "LevelOne")
+            {
+                GetComponent<Renderer>().enabled = false;
+            }
 
-	void OnMouseDown() {
-		SceneManager.LoadScene("AnimalSelecter");
-		PlayerPrefs.SetString ("animalSelecterLevel", this.gameObject.name);
-	}
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        void OnMouseDown()
+        {
+            SceneManager.LoadScene("AnimalSelecter");
+            PlayerPrefs.SetString("animalSelecterLevel", this.gameObject.name);
+        }
+    }
 }

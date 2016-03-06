@@ -1,107 +1,102 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections; 
 using System.Collections.Generic;
 
-public class PandaFunctions : MonoBehaviour, IAnimalFunctions
+namespace Morphie
 {
-	private PlayerController player;
-	public bool cooldown = false;
-	
-	void Awake()
-	{
-		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
-	
-	void Start()
-	{
-	}
-	
-	public void ChangeShape()
-	{
-		Vector2 newSize = new Vector2(0.78f, 0.81f);
-		player.helperFunctions.CorrectShapePosition(6, newSize);
-	}
 
-	public void LeaveShape()
-	{
-	}
-	
-	public void UpdateFunctions()
-	{
-	}
-	
-	public void Ability()
-	{
-		if (!cooldown) 
-		{
-			StartCoroutine (CastAnimation (true));
-		}
-	}
+    public class PandaFunctions : MonoBehaviour, IAnimalFunctions
+    {
+        public bool cooldown = false;
 
-	IEnumerator Disrupt()
-	{
-		float timer = 0f;
+        public void ChangeShape()
+        {
+            Vector2 newSize = new Vector2(0.78f, 0.81f);
+            HelperFunctions.CorrectShapePosition(6, newSize);
+        }
 
-		while (timer < 1.5f && player.anim.GetInteger("shape") == 6)
-		{
-			//player.invulnerable = true;
-			timer += Time.deltaTime;
-			yield return null;
-		}
-		StartCoroutine (CastAnimation (false));
-	}
+        public void LeaveShape()
+        {
+        }
 
-	IEnumerator CastAnimation(bool beginCast)
-	{
-		float timer = 0f;
-		player.GetComponent<Renderer>().enabled = true;
-		if (beginCast) 
-		{
-			StartCoroutine(player.helperFunctions.Cooldown(6, x => this.cooldown = x));
-			player.anim.SetBool ("isDisrupting", true);
-			player.invulnerable = true;
-			player.GetComponent<Rigidbody2D>().isKinematic = true;
-			//player.collider2D.enabled = false;
-		}
+        public void UpdateFunctions()
+        {
+        }
 
-		while (timer < 0.5f && player.anim.GetInteger("shape") == 6)
-		{
-			//player.invulnerable = true;
-			timer += Time.deltaTime;
-			yield return null;
-		}
+        public void Ability()
+        {
+            if (!cooldown)
+            {
+                StartCoroutine(CastAnimation(true));
+            }
+        }
 
-		if (!beginCast) {
-			Debug.Log ("END CAST");
+        IEnumerator Disrupt()
+        {
+            float timer = 0f;
 
-			if (player.anim.GetInteger("shape") != 9) //DINO
-			{
-				player.invulnerable = false;
-			}
+            while (timer < 1.5f && PlayerController.anim.GetInteger("shape") == 6)
+            {
+                //player.invulnerable = true;
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            StartCoroutine(CastAnimation(false));
+        }
 
-			player.GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or play will get stock in environments not dying
-			player.GetComponent<Collider2D>().enabled = true;
-			player.GetComponent<Rigidbody2D>().isKinematic = false;
-			player.anim.SetBool ("isDisrupting", false);
-		} 
-		else 
-		{
-			player.GetComponent<Renderer>().enabled = false;
-			StartCoroutine (Disrupt ());
-		}
+        IEnumerator CastAnimation(bool beginCast)
+        {
+            float timer = 0f;
+            PlayerController.playerRenderer.enabled = true;
+            if (beginCast)
+            {
+                StartCoroutine(HelperFunctions.Cooldown(6, x => cooldown = x));
+                PlayerController.anim.SetBool("isDisrupting", true);
+                PlayerController.invulnerable = true;
+                PlayerController.playerRigidBody.isKinematic = true;
+                //player.collider2D.enabled = false;
+            }
+
+            while (timer < 0.5f && PlayerController.anim.GetInteger("shape") == 6)
+            {
+                //player.invulnerable = true;
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            if (!beginCast)
+            {
+                Debug.Log("END CAST");
+
+                if (PlayerController.anim.GetInteger("shape") != 9) //DINO
+                {
+                    PlayerController.invulnerable = false;
+                }
+
+                PlayerController.playerBoxCollider.enabled = false;  //This shiet is necessary or play will get stock in environments not dying
+                PlayerController.playerBoxCollider.enabled = true;
+                PlayerController.playerRigidBody.isKinematic = false;
+                PlayerController.anim.SetBool("isDisrupting", false);
+            }
+            else
+            {
+                PlayerController.playerRenderer.enabled = false;
+                StartCoroutine(Disrupt());
+            }
 
 
-	}
+        }
 
-	IEnumerator Cooldown()
-	{
-		this.cooldown = true;
-		float timer = 0f;
-		while (timer < 6f)
-		{
-			timer += Time.deltaTime;
-			yield return null;
-		}
-		this.cooldown = false;
-	}
+        IEnumerator Cooldown()
+        {
+            cooldown = true;
+            float timer = 0f;
+            while (timer < 6f)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            cooldown = false;
+        }
+    }
 }

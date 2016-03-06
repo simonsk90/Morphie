@@ -1,59 +1,64 @@
 using UnityEngine;
 using System.Collections;
 
-public class PigFunctions : MonoBehaviour, IAnimalFunctions {
+namespace Morphie {
 
-	private PlayerController player;
-	public GameObject detector;
-	private Vector2 newSize = new Vector2(0.73f, 0.35f);
+    public class PigFunctions : MonoBehaviour, IAnimalFunctions {
 
-	void Awake()
-	{
-		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-		detector = Instantiate(Resources.Load("PigDetector")) as GameObject;
+        public static GameObject detector;
+        private static BoxCollider2D detectorCollider;
+        
+        private Vector2 newSize = new Vector2(0.73f, 0.35f);
 
-		detector.transform.parent = player.transform;
-		detector.transform.localPosition = new Vector2(0f, 0f);
-		detector.transform.localScale = new Vector2(player.transform.localScale.x, player.transform.localScale.y);
+        void Awake()
+        {
+            detector = Instantiate(Resources.Load("PigDetector")) as GameObject;
+            Transform detectorTransform = detector.transform;
+            detectorCollider = detector.GetComponent<BoxCollider2D>();
 
-		detector.GetComponent<BoxCollider2D>().size = new Vector2(newSize.x + 0.25f, newSize.y - 0.01f);
-		detector.GetComponent<Collider2D>().enabled = false;
-	}
+            detectorTransform.parent = PlayerController.playerTransform;
+            detectorTransform.localPosition = new Vector2(0f, 0f);
+            detectorTransform.localScale = new Vector2(PlayerController.playerTransform.localScale.x, PlayerController.playerTransform.localScale.y);
 
-	void Start () {
+            detectorCollider.size = new Vector2(newSize.x + 0.25f, newSize.y - 0.01f);
+            detectorCollider.enabled = false;
+        }
 
-	}
-	
-	public void ChangeShape()
-	{
-		player.helperFunctions.CorrectShapePosition(4, newSize);
+        void Start() {
 
-		if (player.GetComponent<MonkeyFunctions>() != null)
-		{
-			if (!player.GetComponent<MonkeyFunctions>().reversing)
-			{
-				detector.GetComponent<Collider2D>().enabled = true;
-			}
-		}
-		else
-		{
-			detector.GetComponent<Collider2D>().enabled = true;
-		}
+        }
 
-	}
+        public void ChangeShape()
+        {
+            HelperFunctions.CorrectShapePosition(4, newSize);
 
-	public void LeaveShape()
-	{
-		detector.GetComponent<Collider2D>().enabled = false;
-	}
-	
-	public void UpdateFunctions()
-	{
-		
-	}
-	
-	public void Ability()
-	{
+            if (PlayerController.playerGameObject.GetComponent<MonkeyFunctions>() != null)
+            {
+                if (!MonkeyFunctions.reversing)
+                {
+                    detectorCollider.enabled = true;
+                }
+            }
+            else
+            {
+                detectorCollider.enabled = true;
+            }
 
-	}
+        }
+
+        public void LeaveShape()
+        {
+            detectorCollider.enabled = false;
+        }
+
+        public void UpdateFunctions()
+        {
+
+        }
+
+        public void Ability()
+        {
+
+        }
+    }
 }
