@@ -1,47 +1,53 @@
 using UnityEngine;
 using System.Collections;
 
-public class SheepFunctions : MonoBehaviour, IAnimalFunctions {
+namespace Morphie
+{
 
-	private PlayerController player;
+    public class SheepFunctions : MonoBehaviour, IAnimalFunctions
+    {
 
-	void Awake()
-	{
-		player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-	}
+        private PlayerController player;
 
-	void Start () {
+        void Awake()
+        {
+            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+        }
 
-	}
+        void Start()
+        {
 
-	public void ChangeShape()
-	{
-		Vector2 newSize = new Vector2(0.41f, 0.5f);
-		player.helperFunctions.CorrectShapePosition(1, newSize);
-	}
+        }
 
-	public void LeaveShape()
-	{
-		
-	}
+        public void ChangeShape()
+        {
+            Vector2 newSize = new Vector2(0.41f, 0.5f);
+            player.helperFunctions.CorrectShapePosition(1, newSize);
+        }
 
-	public void UpdateFunctions()
-	{
+        public void LeaveShape()
+        {
 
-	}
+        }
 
-	public void Ability()
-	{
-		if (player.helperFunctions.CheckOnGround(player.gameObject as GameObject))
-		{
-			GetComponent<Rigidbody2D>().AddForce(Vector2.up * 240f); //Rewrite to not use force
-		}
+        public void UpdateFunctions()
+        {
 
-		else if (player.helperFunctions.CheckOnCeiling()) 
-		{
-			GetComponent<Rigidbody2D>().AddForce(-Vector2.up * 240f); //Rewrite to not use force
-		}
+        }
 
-	}
+        public void Ability()
+        {
+            if (player.helperFunctions.CheckOnGround(player.gameObject as GameObject))
+            {
+                GetComponent<Rigidbody2D>().AddForce(Vector2.up * 240f); //Rewrite to not use force
+            }
 
+            else if (player.helperFunctions.CheckOnCeiling())
+            {
+                GetComponent<Rigidbody2D>().AddForce(-Vector2.up * 240f); //Rewrite to not use force
+            }
+
+        }
+
+    }
 }

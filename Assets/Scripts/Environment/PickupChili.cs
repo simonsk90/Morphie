@@ -1,27 +1,32 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PickupChili : PickupSuperClass {
+namespace Morphie
+{
 
-	public override void Effect()
-	{
-		StartCoroutine(MakeHaste());
-	}
+    public class PickupChili : PickupSuperClass
+    {
 
-	IEnumerator MakeHaste()
-	{
-		float timer = 0f;
-		player.speed += 2f;
+        public override void Effect()
+        {
+            StartCoroutine(MakeHaste());
+        }
 
-		while (timer < 3f)
-		{
-			timer += Time.deltaTime;
-			yield return null;
-		}
-		if (player.speed > 2f) 
-		{
-			player.speed -= 2f;
-		}
-	}
+        IEnumerator MakeHaste()
+        {
+            float timer = 0f;
+            player.speed += 2f;
 
+            while (timer < 3f)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            if (player.speed > 2f)
+            {
+                player.speed -= 2f;
+            }
+        }
+
+    }
 }
