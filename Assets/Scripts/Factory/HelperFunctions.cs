@@ -18,9 +18,9 @@ namespace Morphie
             player = GameObject.Find("Stickman").GetComponent<PlayerController>();
         }
 
-        void Update()
+        public static void InitializeHelperFunctions()
         {
-
+            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
         }
 
         public bool CheckOnGround(GameObject obj)

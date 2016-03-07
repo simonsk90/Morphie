@@ -14,16 +14,6 @@ namespace Morphie
         private static IAnimalFunctions a4;
         private static IAnimalFunctions currentAnimal;
 
-        void Awake()
-        {
-            
-        }
-
-        void Start()
-        {
-            Animal1Shape();
-        }
-
         public static void InitializeAnimals()
         {
             a1 = HelperFunctions.player.playerGameObject.AddComponent(System.Type.GetType("Morphie." + PlayerPrefs.GetString("animal1") + "Functions")) as IAnimalFunctions;

@@ -19,7 +19,6 @@ namespace Morphie
         private Vector2 checkpoint;
         public CameraController cam;
         private int level;
-        //public AnimalContainer ac;
         public bool invulnerable = false;
         public bool reverseGravity = false;
         public bool abilitiesLocked = false;
@@ -41,15 +40,14 @@ namespace Morphie
             playerRenderer = playerGameObject.GetComponent<Renderer>();
 
             
-            anim = GetComponent<Animator>();
+            anim = playerGameObject.GetComponent<Animator>();
             cam = GameObject.Find("Main Camera").GetComponent<CameraController>();
-            helperFunctions = GameObject.Find("Factory").GetComponent<HelperFunctions>();
-            objectsController = GameObject.Find("Factory").GetComponent<ObjectsController>();
+            HelperFunctions.InitializeHelperFunctions();
+            helperFunctions = playerGameObject.GetComponent<HelperFunctions>();
+            objectsController = playerGameObject.GetComponent<ObjectsController>();
             AnimalContainer.InitializeAnimals();
             updateFunction = () => AnimalContainer.Animal1Update();
             abilityFunction = () => AnimalContainer.Animal1Ability();
-
-            //ac = gameObject.AddComponent<AnimalContainer>();
         }
 
         void Start()
