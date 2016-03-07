@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
 
         updateFunction();
 
-		transform.Translate(Vector2.right * this.speed * Time.deltaTime); //Moving to the right
+		transform.Translate(Vector2.right * speed * Time.deltaTime); //Moving to the right
         StaminaDecrement();
 
 	}
@@ -113,24 +113,24 @@ public class PlayerController : MonoBehaviour
 
 	public void SwitchShape(int newShape)
 	{
-		if (!reverseGravity) 
-		{
-			this.GetComponent<Rigidbody2D>().gravityScale = 1f;
-		} 
-		else 
-		{
-			this.GetComponent<Rigidbody2D>().gravityScale = -1f;
-		}
+        if (!reverseGravity)
+        {
+            GetComponent<Rigidbody2D>().gravityScale = 1f;
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().gravityScale = -1f;
+        }
 
-		this.GetComponent<Rigidbody2D>().mass = 1f;
+        GetComponent<Rigidbody2D>().mass = 1f;
 
 
-		//this.invulnerable = false;
-		this.GetComponent<Rigidbody2D>().isKinematic = false;
-		this.GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or player will get stock in environments not dying
-		this.GetComponent<Collider2D>().enabled = true;
+        //this.invulnerable = false;
+        GetComponent<Rigidbody2D>().isKinematic = false;
+        GetComponent<Collider2D>().enabled = false;  //This shiet is necessary or player will get stock in environments not dying
+        GetComponent<Collider2D>().enabled = true;
 
-		if (!isDead)
+        if (!isDead)
 		{
 			previousShape = shape;
 			shape = newShape;
@@ -214,7 +214,7 @@ public class PlayerController : MonoBehaviour
             float timer = 0f;
             string lname = SceneManager.GetActiveScene().name;
 
-            this.GetComponent<Rigidbody2D>().isKinematic = true;
+            GetComponent<Rigidbody2D>().isKinematic = true;
             isDead = true;
             speed = 0f;
             anim.SetBool("isDead", true);
