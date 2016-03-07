@@ -1,4 +1,4 @@
-Giv pig/dino detectors. collider,transform,rigid referencer som kan tilgåes    Gør det samme med superclasses   Også i RockController
+
 
 Ret edge colliders så de passer.
 

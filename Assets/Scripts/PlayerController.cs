@@ -18,11 +18,9 @@ namespace Morphie
         public int previousShape;
         private Vector2 checkpoint;
         public CameraController cam;
-        private int level;
         public bool invulnerable = false;
         public bool reverseGravity = false;
         public bool abilitiesLocked = false;
-        //public ObjectsController objectsController;
         private Action updateFunction;
         private Action abilityFunction;
         public GameObject playerGameObject;

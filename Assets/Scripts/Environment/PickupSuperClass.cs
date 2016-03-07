@@ -22,9 +22,7 @@ namespace Morphie
 
         public abstract void Effect();
 
-        // Use this for initialization
-
-        void Awake()
+        void Start()
         {
             player = HelperFunctions.player;
         }

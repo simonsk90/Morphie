@@ -22,7 +22,7 @@ namespace Morphie
 
             detector = Instantiate(Resources.Load("Detector")) as GameObject;
 
-            detector.transform.parent = player.transform;
+            detector.transform.parent = player.playerTransform;
             detector.transform.localPosition = new Vector2(0f, 0f);
             detector.transform.localScale = new Vector2(player.transform.localScale.x, player.transform.localScale.y);
 

@@ -28,12 +28,13 @@ namespace Morphie
             originalY = transform.parent.position.y;
             newPos = transform.parent.position;
             newPos.x++;
-            player = HelperFunctions.player;
+            
         }
 
         // Use this for initialization
         void Start()
         {
+            player = HelperFunctions.player;
             //this.originalY = this.transform.parent.position.y;
             //this.newPos = this.transform.parent.position;
             //this.newPos.x++;
