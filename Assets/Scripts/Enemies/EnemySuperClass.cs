@@ -7,13 +7,26 @@ namespace Morphie
     {
 
         public PlayerController player;
+        public CowFunctions cf;
         public float speed;
         private Vector2 screenPos;
         private bool activated = false;
 
-        void Awake()
+        //void Awake()
+        //{
+        //    player = HelperFunctions.player;
+        //    cf = player.GetComponent<CowFunctions>();
+        //}
+
+        //void Awake()
+        //{
+        //    Debug.Log("Hello");
+        //}
+
+        void Start()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
+            cf = player.GetComponent<CowFunctions>();
         }
 
         public void MoveLeftIfActive()
@@ -21,7 +34,7 @@ namespace Morphie
             if (!activated)
             {
                 screenPos = Camera.main.WorldToScreenPoint(transform.position);
-                if (player.helperFunctions.UnitWithinScreenSpace(screenPos))
+                if (HelperFunctions.UnitWithinScreenSpace(screenPos))
                 {
                     transform.Translate(Vector2.right * -speed * Time.deltaTime);
                     activated = true;

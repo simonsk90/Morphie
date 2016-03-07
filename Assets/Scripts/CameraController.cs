@@ -14,16 +14,15 @@ namespace Morphie
 
         void Awake()
         {
-            cam = GetComponent<Camera>();
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-            speed = player.speed;
+            
             //PositionCamera(); //SKAL REWORKES
         }
 
-        // Use this for initialization
-        void Start()
+        public void InitializeCameraController()
         {
-
+            player = HelperFunctions.player;
+            cam = GetComponent<Camera>();
+            speed = player.speed;
         }
 
         // Update is called once per frame
@@ -34,10 +33,10 @@ namespace Morphie
 
         public void PositionCamera()
         {
-            Vector3 newPosition = this.transform.position;
+            Vector3 newPosition = transform.position;
             float insertion = 4f; //4f
-            float newX = player.transform.position.x + insertion;
-            newX = player.GetComponent<Collider2D>().bounds.max.x + insertion;
+            float newX = player.playerTransform.position.x + insertion;
+            newX = player.playerCollider.bounds.max.x + insertion;
             newPosition.x = newX;
             transform.position = newPosition;
         }

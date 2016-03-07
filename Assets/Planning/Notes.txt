@@ -1,3 +1,5 @@
+Giv pig/dino detectors. collider,transform,rigid referencer som kan tilgåes    Gør det samme med superclasses   Også i RockController
+
 Ret edge colliders så de passer.
 
 Ret så bagenden af player ikke kan collide med ground/rock ved f.eks. fald. (Men hvordan skal disruption så fungere?)

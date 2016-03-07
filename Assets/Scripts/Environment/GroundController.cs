@@ -19,7 +19,7 @@ namespace Morphie
 
         void Start()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
         }
 
     }

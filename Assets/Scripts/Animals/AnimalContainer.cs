@@ -6,8 +6,6 @@ namespace Morphie
 
     public class AnimalContainer : MonoBehaviour
     {
-
-
         private static IAnimalFunctions a1;
         private static IAnimalFunctions a2;
         private static IAnimalFunctions a3;

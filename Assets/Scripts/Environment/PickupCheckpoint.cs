@@ -24,7 +24,7 @@ namespace Morphie
             PlayerPrefs.SetFloat("checkpointX", transform.position.x);
             PlayerPrefs.SetFloat("checkpointY", transform.position.y);
             player.stamina = 0;
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
 

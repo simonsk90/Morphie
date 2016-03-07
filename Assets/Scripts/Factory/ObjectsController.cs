@@ -5,21 +5,28 @@ using System.Collections.Generic;
 namespace Morphie
 {
 
-    public class ObjectsController : MonoBehaviour
+    public static class ObjectsController
     {
 
-        private PlayerController player;
-        public List<GameObject> activeObjects = new List<GameObject>();
-        public List<GameObject> inactiveObjects = new List<GameObject>();
-        private List<GameObject> passedObjects = new List<GameObject>();
-        private List<GameObject> incomingObjects = new List<GameObject>();
-        private Camera cam;
+        private static PlayerController player;
+        public static List<GameObject> activeObjects = new List<GameObject>(); //Why public
+        public static List<GameObject> inactiveObjects = new List<GameObject>();
+        private static List<GameObject> passedObjects = new List<GameObject>();
+        private static List<GameObject> incomingObjects = new List<GameObject>();
+        private static Camera cam;
 
-        void Awake()
+        public static void InitializeObjectsController()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            //Awake begin
+            player = HelperFunctions.player;
+            cam = player.cam.cam;
 
-            foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))  //Gør måske alt dette under awake()
+            activeObjects.Clear();
+            inactiveObjects.Clear();
+            passedObjects.Clear();
+            incomingObjects.Clear();
+
+            foreach (GameObject obj in GameObject.FindObjectsOfType(typeof(GameObject)))  //Gør måske alt dette under awake()
             {
                 if (obj.tag != "Untagged" && obj.tag != "Player" && obj.tag != "MainCamera")
                 {
@@ -31,17 +38,12 @@ namespace Morphie
             {
                 return (g1.transform.position.x).CompareTo(g2.transform.position.x);
             });
-        }
 
-        // Use this for initialization
-        void Start()
-        {
-            cam = player.cam.cam;
-
+            //start begin
             DeactivatePassedObjects();
 
-            Debug.Log(player.cam.cam.pixelWidth);
-            Debug.Log(cam.WorldToScreenPoint(player.transform.position));
+            //Debug.Log(player.cam.cam.pixelWidth);
+            //Debug.Log(cam.WorldToScreenPoint(player.transform.position));
 
             foreach (GameObject go in activeObjects) //Deactivate inc objects
             {
@@ -53,16 +55,52 @@ namespace Morphie
             }
 
             ActivateIncomingObjects();
-
         }
+
+        //void Awake()
+        //{
+        //    player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+
+        //    foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))  //Gør måske alt dette under awake()
+        //    {
+        //        if (obj.tag != "Untagged" && obj.tag != "Player" && obj.tag != "MainCamera")
+        //        {
+        //            activeObjects.Add(obj);
+        //        }
+        //    }
+
+        //    activeObjects.Sort(delegate (GameObject g1, GameObject g2)
+        //    {
+        //        return (g1.transform.position.x).CompareTo(g2.transform.position.x);
+        //    });
+        //}
+
+        //// Use this for initialization
+        //void Start()
+        //{
+        //    cam = player.cam.cam;
+
+        //    DeactivatePassedObjects();
+
+        //    Debug.Log(player.cam.cam.pixelWidth);
+        //    Debug.Log(cam.WorldToScreenPoint(player.transform.position));
+
+        //    foreach (GameObject go in activeObjects) //Deactivate inc objects
+        //    {
+        //        if (cam.WorldToScreenPoint(go.transform.position).x > cam.pixelWidth * 2f)
+        //        {
+        //            incomingObjects.Add(go);
+        //            go.SetActive(false);
+        //        }
+        //    }
+
+        //    ActivateIncomingObjects();
+
+        //}
 
         // Update is called once per frame
-        void Update()
-        {
 
-        }
-
-        private void ActivateIncomingObjects()
+        private static void ActivateIncomingObjects()
         {
             for (int x = 0; x < incomingObjects.Count; x++)
             {
@@ -81,20 +119,20 @@ namespace Morphie
                 }
             }
 
-            StartCoroutine(player.helperFunctions.AddDelay(2, this.ActivateIncomingObjects));
+            player.StartCoroutine(HelperFunctions.AddDelay(2, ActivateIncomingObjects));
         }
 
-        public void DeactivatePassedObjects() //FIND UD AF OM DET ER MERE EFFEKTIVT AT BRUGE ITERATOR ELLER STANDARD LOOP
+        public static void DeactivatePassedObjects() //FIND UD AF OM DET ER MERE EFFEKTIVT AT BRUGE ITERATOR ELLER STANDARD LOOP   WHY PUBLIC?
         {
             foreach (GameObject go in GetPassedObjects())
             {
                 go.SetActive(false);
             }
 
-            StartCoroutine(player.helperFunctions.AddDelay(2, this.DeactivatePassedObjects));
+            player.StartCoroutine(HelperFunctions.AddDelay(2, DeactivatePassedObjects));
         }
 
-        public IEnumerable<GameObject> GetPassedObjects()
+        public static IEnumerable<GameObject> GetPassedObjects()
         {
             if (player.GetComponent<MonkeyFunctions>() != null)
             {

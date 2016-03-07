@@ -27,7 +27,7 @@ namespace Morphie
 
             if (!activated)
             {
-                activated = player.helperFunctions.UnitWithinScreenSpace(Camera.main.WorldToScreenPoint(transform.position));
+                activated = HelperFunctions.UnitWithinScreenSpace(Camera.main.WorldToScreenPoint(transform.position));
             }
             else
             {

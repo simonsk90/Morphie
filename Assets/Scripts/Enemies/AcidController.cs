@@ -6,7 +6,6 @@ namespace Morphie
 
     public class AcidController : MonoBehaviour
     {
-
         private PlayerController player;
 
         void OnTriggerStay2D(Collider2D coll)
@@ -20,8 +19,7 @@ namespace Morphie
 
         void Start()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
         }
-
     }
 }

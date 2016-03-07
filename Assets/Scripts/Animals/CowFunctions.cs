@@ -14,18 +14,13 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-        }
-
-        void Start()
-        {
-
+            player = HelperFunctions.player;
         }
 
         public void ChangeShape()
         {
             Vector2 newSize = new Vector2(1.08f, 0.65f);
-            player.helperFunctions.CorrectShapePosition(3, newSize);
+            HelperFunctions.CorrectShapePosition(3, newSize);
         }
 
         public void LeaveShape()
@@ -50,15 +45,15 @@ namespace Morphie
         {
             float timer = 0f;
             player.anim.SetBool("isHitting", true);
-            StartCoroutine(player.helperFunctions.Cooldown(3f, x => this.cooldown = x));
+            StartCoroutine(HelperFunctions.Cooldown(3f, x => cooldown = x));
 
             while (timer < 1f && player.anim.GetInteger("shape") == 3) //Look if we're in cow shape
             {
-                this.hitting = true;
+                hitting = true;
                 timer += Time.deltaTime;
                 yield return null;
             }
-            this.hitting = false;
+            hitting = false;
             player.anim.SetBool("isHitting", false);
             //ADD Cooldown maybe?
         }

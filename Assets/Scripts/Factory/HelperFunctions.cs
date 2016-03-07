@@ -6,24 +6,19 @@ using System.Collections.Generic;
 namespace Morphie
 {
 
-    public class HelperFunctions : MonoBehaviour
+    public static class HelperFunctions
     {
 
         public static PlayerController player;
-        private LayerMask mask = 1 << 4;
+        private static LayerMask mask = 1 << 4;
         public delegate void CallBack();
-
-        void Awake()
-        {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
-        }
 
         public static void InitializeHelperFunctions()
         {
             player = GameObject.Find("Stickman").GetComponent<PlayerController>();
         }
 
-        public bool CheckOnGround(GameObject obj)
+        public static bool CheckOnGround(GameObject obj)
         {
             bool onGround = false;
             Vector2 startPoint = obj.transform.position;
@@ -56,12 +51,12 @@ namespace Morphie
             return onGround;
         }
 
-        public bool CheckOnCeiling()
+        public static bool CheckOnCeiling()
         {
             bool onGround = false;
-            Vector2 startPoint = player.transform.position;
-            startPoint.x = player.GetComponent<Collider2D>().bounds.min.x + 0.1f;
-            startPoint.y = player.GetComponent<Collider2D>().bounds.max.y;
+            Vector2 startPoint = player.playerTransform.position;
+            startPoint.x = player.playerCollider.bounds.min.x + 0.1f;
+            startPoint.y = player.playerCollider.bounds.max.y;
             RaycastHit2D hit = Physics2D.Raycast(startPoint, Vector2.up, 0.020f, mask); //Maybe change distance if model is changed
 
             if (hit.collider != null)
@@ -71,7 +66,7 @@ namespace Morphie
 
             else
             {
-                startPoint.x = player.GetComponent<Collider2D>().bounds.max.x - 0.1f;
+                startPoint.x = player.playerCollider.bounds.max.x - 0.1f;
                 hit = Physics2D.Raycast(startPoint, Vector2.up, 0.020f, mask); //Maybe change distance if model is changed
 
                 if (hit.collider != null)
@@ -83,12 +78,12 @@ namespace Morphie
             return onGround;
         }
 
-        public void CorrectShapePosition(int shape, Vector2 newSize)
+        public static void CorrectShapePosition(int shape, Vector2 newSize)
         {
             Vector2 newPosition = new Vector2();
-            Bounds oldBounds = player.GetComponent<BoxCollider2D>().bounds;
+            Bounds oldBounds = player.playerCollider.bounds;
             player.anim.SetInteger("shape", shape);
-            player.GetComponent<BoxCollider2D>().size = newSize;
+            player.playerCollider.size = newSize;
 
             //Correct Y-axis
             /*
@@ -133,20 +128,20 @@ namespace Morphie
 
             if (player.reverseGravity)
             {
-                newPosition.y = player.transform.position.y - (player.GetComponent<Collider2D>().bounds.max.y - oldBounds.max.y);
+                newPosition.y = player.playerTransform.position.y - (player.playerCollider.bounds.max.y - oldBounds.max.y);
             }
             else
             {
-                newPosition.y = player.transform.position.y + (player.GetComponent<Collider2D>().bounds.max.y - oldBounds.max.y);
+                newPosition.y = player.playerTransform.position.y + (player.playerCollider.bounds.max.y - oldBounds.max.y);
             }
 
-            newPosition.x = player.transform.position.x - (player.GetComponent<Collider2D>().bounds.max.x - oldBounds.max.x);
+            newPosition.x = player.playerTransform.position.x - (player.playerCollider.bounds.max.x - oldBounds.max.x);
 
-            player.transform.position = newPosition;
+            player.playerTransform.position = newPosition;
 
         }
 
-        public IEnumerator AddDelay(int seconds, CallBack cb)
+        public static IEnumerator AddDelay(int seconds, CallBack cb)
         {
             //Debug.Log ("Delay");
             yield return new WaitForSeconds(seconds);
@@ -154,25 +149,25 @@ namespace Morphie
             cb();
         }
 
-        public void MakeDisappear(GameObject go) //Skal måske også fjerne go's children
-                                                 // Skal måske bare bruge go.setActive = false ????
-        {
-            if (go.GetComponent<Renderer>() != null)
-            {
-                go.GetComponent<Renderer>().enabled = false;
-            }
-            /*if (go.collider2D != null)
-            {
-                go.collider2D.enabled = false;
-            }*/
+        //public static void MakeDisappear(GameObject go) //Skal måske også fjerne go's children
+        //                                         // Skal måske bare bruge go.setActive = false ????
+        //{
+        //    if (go.GetComponent<Renderer>() != null)
+        //    {
+        //        go.GetComponent<Renderer>().enabled = false;
+        //    }
+        //    /*if (go.collider2D != null)
+        //    {
+        //        go.collider2D.enabled = false;
+        //    }*/
 
-            foreach (Collider2D c in go.GetComponents<Collider2D>())
-            {
-                c.enabled = false;
-            }
-        }
+        //    foreach (Collider2D c in go.GetComponents<Collider2D>())
+        //    {
+        //        c.enabled = false;
+        //    }
+        //}
 
-        public IEnumerator Cooldown(float duration, Action<bool> setCooldown)
+        public static IEnumerator Cooldown(float duration, Action<bool> setCooldown)
         {
             setCooldown(true);
 
@@ -186,7 +181,7 @@ namespace Morphie
             setCooldown(false);
         }
 
-        public bool UnitWithinScreenSpace(Vector2 unitScreenPos)
+        public static bool UnitWithinScreenSpace(Vector2 unitScreenPos)
         {
             if (
                (unitScreenPos.x < Screen.width && unitScreenPos.y < Screen.height) &&

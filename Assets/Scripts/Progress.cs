@@ -20,7 +20,7 @@ namespace Morphie
         void Start()
         {
             // find the current instance of the player script:
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
         }
 
         void Update()

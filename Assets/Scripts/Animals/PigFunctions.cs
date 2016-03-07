@@ -13,7 +13,7 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
             detector = Instantiate(Resources.Load("PigDetector")) as GameObject;
 
             detector.transform.parent = player.transform;
@@ -31,7 +31,7 @@ namespace Morphie
 
         public void ChangeShape()
         {
-            player.helperFunctions.CorrectShapePosition(4, newSize);
+            HelperFunctions.CorrectShapePosition(4, newSize);
 
             if (player.GetComponent<MonkeyFunctions>() != null)
             {

@@ -13,7 +13,7 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
         }
 
@@ -26,7 +26,7 @@ namespace Morphie
         {
             //player.anim.SetInteger("shape", 8);
             Vector2 newSize = new Vector2(0.8f, 0.8f);
-            player.helperFunctions.CorrectShapePosition(8, newSize);
+            HelperFunctions.CorrectShapePosition(8, newSize);
         }
 
         public void LeaveShape()
@@ -41,7 +41,7 @@ namespace Morphie
 
         public void Ability()
         {
-            if (!this.cooldown)
+            if (!cooldown)
             {
                 StartCoroutine(SlowTime());
             }
@@ -52,7 +52,7 @@ namespace Morphie
             float timer = 0f;
             EnemyController ec;
 
-            StartCoroutine(player.helperFunctions.Cooldown(10f, x => this.cooldown = x));
+            StartCoroutine(HelperFunctions.Cooldown(10f, x => cooldown = x));
             //StartCoroutine(Cooldown());
 
             foreach (GameObject enemy in enemies)
@@ -71,18 +71,6 @@ namespace Morphie
                 ec = enemy.GetComponent<EnemyController>();
                 ec.speed = ec.speed * 2.5f;
             }
-        }
-
-        IEnumerator Cooldown()
-        {
-            this.cooldown = true;
-            float timer = 0f;
-            while (timer < 10f)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            this.cooldown = false;
         }
     }
 }

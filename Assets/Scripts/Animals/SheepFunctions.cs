@@ -11,7 +11,7 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
         }
 
         void Start()
@@ -22,7 +22,7 @@ namespace Morphie
         public void ChangeShape()
         {
             Vector2 newSize = new Vector2(0.41f, 0.5f);
-            player.helperFunctions.CorrectShapePosition(1, newSize);
+            HelperFunctions.CorrectShapePosition(1, newSize);
         }
 
         public void LeaveShape()
@@ -37,14 +37,14 @@ namespace Morphie
 
         public void Ability()
         {
-            if (player.helperFunctions.CheckOnGround(player.gameObject as GameObject))
+            if (HelperFunctions.CheckOnGround(player.gameObject as GameObject))
             {
-                GetComponent<Rigidbody2D>().AddForce(Vector2.up * 240f); //Rewrite to not use force
+                player.playerRigidBody.AddForce(Vector2.up * 240f); //Rewrite to not use force
             }
 
-            else if (player.helperFunctions.CheckOnCeiling())
+            else if (HelperFunctions.CheckOnCeiling())
             {
-                GetComponent<Rigidbody2D>().AddForce(-Vector2.up * 240f); //Rewrite to not use force
+                player.playerRigidBody.AddForce(-Vector2.up * 240f); //Rewrite to not use force
             }
 
         }

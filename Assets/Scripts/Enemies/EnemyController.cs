@@ -5,14 +5,12 @@ namespace Morphie
 
     public class EnemyController : EnemySuperclass
     {
-
-        private CowFunctions cf;
-
+        
         void OnCollisionEnter2D(Collision2D coll)
         {
             if (coll.gameObject.tag == "Player")
             {
-                if (player.GetComponent<Rigidbody2D>().isKinematic == true)
+                if (player.playerRigidBody.isKinematic == true)
                 {
                     GetComponent<Rigidbody2D>().isKinematic = true;
                 }
@@ -33,11 +31,8 @@ namespace Morphie
             }
         }
 
-
-        // Use this for initialization
-        void Start()
+        void OnEnable()
         {
-            cf = GameObject.Find("Stickman").GetComponent<CowFunctions>();
             speed = 2f;
         }
 

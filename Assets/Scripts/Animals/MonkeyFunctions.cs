@@ -16,19 +16,19 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
         }
 
         void Start()
         {
-            StartCoroutine(Cooldown());
+            StartCoroutine(HelperFunctions.Cooldown(7f, x => cooldown = x));
             StartCoroutine(Track());
         }
 
         public void ChangeShape()
         {
             Vector2 newSize = new Vector2(1.03f, 0.65f);
-            player.helperFunctions.CorrectShapePosition(5, newSize);
+            HelperFunctions.CorrectShapePosition(5, newSize);
         }
 
         public void LeaveShape()
@@ -61,11 +61,11 @@ namespace Morphie
             player.invulnerable = true;
             player.speed = 0f;
             //StartCoroutine(Cooldown());
-            StartCoroutine(player.helperFunctions.Cooldown(7f, x => this.cooldown = x));
+            StartCoroutine(HelperFunctions.Cooldown(7f, x => cooldown = x));
             target = CorrectTargetPosition(target, oldBounds);
             ReactivatePassedObjects(target);
             Debug.Log(target);
-            player.GetComponent<Collider2D>().isTrigger = true;
+            player.playerCollider.isTrigger = true;
 
             while (!reached && !player.isDead)
             {
@@ -79,18 +79,18 @@ namespace Morphie
 
                 }
 
-                player.GetComponent<Rigidbody2D>().isKinematic = true;
+                player.playerRigidBody.isKinematic = true;
                 player.invulnerable = true;
-                player.transform.position = Vector2.MoveTowards(player.transform.position, target, step * Time.deltaTime);
+                player.playerTransform.position = Vector2.MoveTowards(player.playerTransform.position, target, step * Time.deltaTime);
                 player.cam.PositionCamera();
 
-                if (player.transform.position.x < target.x + 0.0001f)
+                if (player.playerTransform.position.x < target.x + 0.0001f)
                 {
                     reached = true;
                     if (!player.anim.GetBool("isDisrupting"))
                     {
-                        player.GetComponent<Collider2D>().isTrigger = false;
-                        player.GetComponent<Rigidbody2D>().isKinematic = false;
+                        player.playerCollider.isTrigger = false;
+                        player.playerRigidBody.isKinematic = false;
                         player.invulnerable = false;
 
                         ToggleAnimalStuff(true, registeredShape);
@@ -106,13 +106,13 @@ namespace Morphie
         {
             //List<GameObject> oldObjects = new List<GameObject>();
 
-            foreach (GameObject go in player.objectsController.inactiveObjects)
+            foreach (GameObject go in ObjectsController.inactiveObjects)
             {
                 if (go.transform.position.x > target.x - 5f && go.tag != "Enemy" && go.tag != "Pickup" && go.tag != "Untagged")
                 {
                     go.SetActive(true);
                     //oldObjects.Add(go);
-                    player.objectsController.activeObjects.Insert(0, go);
+                    ObjectsController.activeObjects.Insert(0, go);
                 }
             }
         }
@@ -120,9 +120,9 @@ namespace Morphie
         private Vector2 CorrectTargetPosition(Vector2 target, Bounds oldBounds)
         {
             Vector2 newTarget;
-            float difY = (oldBounds.max.y - oldBounds.min.y) - (player.GetComponent<Collider2D>().bounds.max.y - player.GetComponent<Collider2D>().bounds.min.y);
+            float difY = (oldBounds.max.y - oldBounds.min.y) - (player.playerCollider.bounds.max.y - player.playerCollider.bounds.min.y);
             //float difY = Mathf.Abs(Mathf.Abs(oldBounds.max.y - oldBounds.min.y) - Mathf.Abs (player.collider2D.bounds.max.y - player.collider2D.bounds.min.y));
-            float difX = Mathf.Abs(Mathf.Abs(oldBounds.max.x - oldBounds.min.x) - Mathf.Abs(player.GetComponent<Collider2D>().bounds.max.x - player.GetComponent<Collider2D>().bounds.min.x));
+            float difX = Mathf.Abs(Mathf.Abs(oldBounds.max.x - oldBounds.min.x) - Mathf.Abs(player.playerCollider.bounds.max.x - player.playerCollider.bounds.min.x));
 
             if (!player.reverseGravity)
             {
@@ -168,8 +168,8 @@ namespace Morphie
         {
             float timer = 0f;
 
-            positionList.Add(player.transform.position);
-            boundsList.Add(player.GetComponent<BoxCollider2D>().bounds);
+            positionList.Add(player.playerTransform.position);
+            boundsList.Add(player.playerCollider.bounds);
 
             if (positionList.Count > 10)
             {
@@ -183,20 +183,6 @@ namespace Morphie
                 yield return null;
             }
             StartCoroutine(Track());
-        }
-
-        IEnumerator Cooldown()
-        {
-            float timer = 0f;
-
-            this.cooldown = true;
-
-            while (timer < 7f)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            this.cooldown = false;
         }
 
         private void ToggleAnimalStuff(bool activate, int animal)

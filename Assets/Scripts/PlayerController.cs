@@ -22,29 +22,28 @@ namespace Morphie
         public bool invulnerable = false;
         public bool reverseGravity = false;
         public bool abilitiesLocked = false;
-        public HelperFunctions helperFunctions;
-        public ObjectsController objectsController;
+        //public ObjectsController objectsController;
         private Action updateFunction;
         private Action abilityFunction;
         public GameObject playerGameObject;
         public BoxCollider2D playerCollider;
         public Rigidbody2D playerRigidBody;
         public Renderer playerRenderer;
+        public Transform playerTransform;
 
         void Awake()
         {
-            
             playerGameObject = gameObject;
             playerCollider = playerGameObject.GetComponent<BoxCollider2D>();
             playerRigidBody = playerGameObject.GetComponent<Rigidbody2D>();
             playerRenderer = playerGameObject.GetComponent<Renderer>();
+            playerTransform = playerGameObject.transform;
 
-            
+            HelperFunctions.InitializeHelperFunctions();
             anim = playerGameObject.GetComponent<Animator>();
             cam = GameObject.Find("Main Camera").GetComponent<CameraController>();
-            HelperFunctions.InitializeHelperFunctions();
-            helperFunctions = playerGameObject.GetComponent<HelperFunctions>();
-            objectsController = playerGameObject.GetComponent<ObjectsController>();
+            cam.InitializeCameraController();
+            ObjectsController.InitializeObjectsController();
             AnimalContainer.InitializeAnimals();
             updateFunction = () => AnimalContainer.Animal1Update();
             abilityFunction = () => AnimalContainer.Animal1Ability();
@@ -66,39 +65,16 @@ namespace Morphie
             checkpoint.x = PlayerPrefs.GetFloat("checkpointX");
             checkpoint.y = PlayerPrefs.GetFloat("checkpointY");
 
-            transform.position = checkpoint;
+            playerTransform.position = checkpoint;
             cam.PositionCamera();
         }
 
         void Update()
         {
             //Apply animals UpdateFunctions
-            //UNDGÅ AT GÅ IGENNEM EN SWITCH HER HVIS MULIGT
-
-            //switch (shape)
-            //{
-            //case 1:
-            //	ac.Animal1Update();
-            //	break;
-
-            //case 2:	
-            //	ac.Animal2Update();
-            //	break;
-
-            //case 3:
-            //	ac.Animal3Update();
-            //	break;
-
-            //case 4:
-            //	ac.Animal4Update();
-            //	break;
-            //}
-
             updateFunction();
-
-            transform.Translate(Vector2.right * speed * Time.deltaTime); //Moving to the right
+            playerTransform.Translate(Vector2.right * speed * Time.deltaTime); //Moving to the right
             StaminaDecrement();
-
         }
 
         public void UseAbility()
@@ -181,7 +157,7 @@ namespace Morphie
 
         public void StaminaDecrement()
         {
-            stamina = stamina + Time.deltaTime * 5;
+            stamina += Time.deltaTime * 5;
             if (stamina >= 100 && isDead == false)
             {
                 StartCoroutine(Die2());
@@ -211,7 +187,6 @@ namespace Morphie
             }
             lives--;
             PlayerPrefs.SetInt("lives", lives);
-            string lname = SceneManager.GetActiveScene().name;
 
             if (lives <= 0)
             {
@@ -219,7 +194,7 @@ namespace Morphie
             }
             else
             {
-                SceneManager.LoadScene(lname);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
 

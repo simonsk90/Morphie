@@ -18,7 +18,7 @@ namespace Morphie
 
         void Awake()
         {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            player = HelperFunctions.player;
 
             detector = Instantiate(Resources.Load("Detector")) as GameObject;
 
@@ -54,7 +54,7 @@ namespace Morphie
         {
             if (!activated)
             {
-                float diff = Mathf.Abs(player.GetComponent<Collider2D>().bounds.min.y - dBot.bounds.min.y);
+                float diff = Mathf.Abs(player.playerCollider.bounds.min.y - dBot.bounds.min.y);
 
                 player.invulnerable = true;
 
@@ -113,8 +113,8 @@ namespace Morphie
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
 
-            player.helperFunctions.CorrectShapePosition(9, newSize);
-            detector.transform.position = player.transform.position;
+            HelperFunctions.CorrectShapePosition(9, newSize);
+            detector.transform.position = player.playerTransform.position;
         }
 
         IEnumerator Duration()

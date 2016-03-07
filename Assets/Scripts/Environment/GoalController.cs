@@ -7,8 +7,6 @@ namespace Morphie
 
     public class GoalController : MonoBehaviour
     {
-
-
         void OnTriggerEnter2D(Collider2D coll)
         {
             if (coll.gameObject.tag == "Player")
@@ -31,11 +29,6 @@ namespace Morphie
                 //Application.LoadLevel("LevelSelecter");
                 SceneManager.LoadScene("LevelSelecter");
             }
-        }
-
-        void Start()
-        {
-
         }
 
     }

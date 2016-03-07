@@ -6,20 +6,13 @@ namespace Morphie
 
     public class BotTopController : MonoBehaviour
     {
-
-        private PlayerController player;
-
         void OnTriggerEnter2D(Collider2D coll)
         {
             if (coll.tag != "Ground" && coll.tag != "Rock")
             {
-                player.helperFunctions.MakeDisappear(coll.gameObject);
+                //HelperFunctions.MakeDisappear(coll.gameObject);
+                coll.gameObject.SetActive(false);
             }
-        }
-
-        void Awake()
-        {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
         }
     }
 }

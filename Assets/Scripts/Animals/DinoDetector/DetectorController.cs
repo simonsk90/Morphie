@@ -3,20 +3,12 @@ using System.Collections;
 
 namespace Morphie
 {
-
     public class DetectorController : MonoBehaviour
     {
-
-        private PlayerController player;
-
         void OnTriggerStay2D(Collider2D coll)
         {
-            player.helperFunctions.MakeDisappear(coll.gameObject);
-        }
-
-        void Awake()
-        {
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            //HelperFunctions.MakeDisappear(coll.gameObject);
+            coll.gameObject.SetActive(false);
         }
     }
 }

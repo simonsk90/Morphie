@@ -23,13 +23,21 @@ namespace Morphie
             }
         }
 
+        void Awake()
+        {
+            originalY = transform.parent.position.y;
+            newPos = transform.parent.position;
+            newPos.x++;
+            player = HelperFunctions.player;
+        }
+
         // Use this for initialization
         void Start()
         {
-            this.originalY = this.transform.parent.position.y;
-            this.newPos = this.transform.parent.position;
-            this.newPos.x++;
-            player = GameObject.Find("Stickman").GetComponent<PlayerController>();
+            //this.originalY = this.transform.parent.position.y;
+            //this.newPos = this.transform.parent.position;
+            //this.newPos.x++;
+            //player = GameObject.Find("Stickman").GetComponent<PlayerController>();
         }
 
         void Update()
@@ -39,24 +47,24 @@ namespace Morphie
 
         public IEnumerator MoveRock()
         {
-            this.speed = player.speed * 3f;
+            speed = player.speed * 3f;
             moving = true;
 
-            while (this.transform.parent.position.x < newPos.x) //0.5
+            while (transform.parent.position.x < newPos.x) //0.5
             {
-                if (this.dropped == false)
+                if (dropped == false)
                 {
-                    this.transform.parent.position = Vector2.MoveTowards(this.transform.parent.position, newPos, speed * Time.deltaTime);
+                    transform.parent.position = Vector2.MoveTowards(transform.parent.position, newPos, speed * Time.deltaTime);
                 }
 
                 if (transform.parent.position.y < originalY - 0.1f)
                 {
-                    this.dropped = true;
+                    dropped = true;
                 }
                 yield return null;
             }
 
-            if (!player.helperFunctions.CheckOnGround(this.gameObject.transform.parent.gameObject))
+            if (!HelperFunctions.CheckOnGround(gameObject.transform.parent.gameObject))
             {
                 StartCoroutine(ApplyGravity());
             }
@@ -65,26 +73,26 @@ namespace Morphie
                 moving = false;
             }
 
-            this.newPos.x++;
+            newPos.x++;
         }
 
         IEnumerator ApplyGravity()
         {
-            float newY = this.transform.parent.position.y - 1f;
-            Vector2 newPosY = this.transform.parent.position;
+            float newY = transform.parent.position.y - 1f;
+            Vector2 newPosY = transform.parent.position;
             newPosY.y = newY;
-            this.speed = player.speed * 3f;
+            speed = player.speed * 3f;
 
             while (!dropped)
             {
-                this.transform.parent.position = Vector2.MoveTowards(this.transform.parent.position, newPosY, speed * Time.deltaTime);
+                transform.parent.position = Vector2.MoveTowards(transform.parent.position, newPosY, speed * Time.deltaTime);
 
-                if (this.transform.parent.position.y == newY)
+                if (transform.parent.position.y == newY)
                 {
-                    if (player.helperFunctions.CheckOnGround(this.transform.parent.gameObject))
+                    if (HelperFunctions.CheckOnGround(transform.parent.gameObject))
                     {
                         dropped = true;
-                        this.GetComponent<Collider2D>().isTrigger = false;
+                        GetComponent<Collider2D>().isTrigger = false;
                     }
                     else
                     {
@@ -96,7 +104,5 @@ namespace Morphie
             }
             moving = false;
         }
-
-
     }
 }
