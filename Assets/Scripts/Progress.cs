@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Morphie
 {
@@ -13,6 +14,9 @@ namespace Morphie
         public Texture2D emptyTex;
         public Texture2D fullTex;
         public Texture2D guiTex;
+        public Texture2D bgTex;
+        private Texture2D animal1Tex;
+        public List<Texture2D> animalListTex = new List<Texture2D>();
         private PlayerController player;
         private bool mouseDown = false;
 
@@ -21,6 +25,45 @@ namespace Morphie
         {
             // find the current instance of the player script:
             player = HelperFunctions.player;
+            animal1Tex = Resources.Load("StickmanWalk01") as Texture2D;
+
+            for (int i = 1; i < 5; i++)
+            {
+                switch (PlayerPrefs.GetString("animal" + i))
+                {
+
+                    case "Sheep":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Sheep/StickmanWalk01") as Texture2D);
+                        break;
+                    case "Bird":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Bird/chick1") as Texture2D);
+                        break;
+                    case "Cow":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Cow/cattle1") as Texture2D);
+                        break;
+                    case "Pig":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Pig/pork1") as Texture2D);
+                        break;
+                    case "Monkey":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Monkey/Monkey1") as Texture2D);
+                        break;
+                    case "Panda":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Panda/PandaWalk1") as Texture2D);
+                        break;
+                    case "Cat":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Cat/Cat1") as Texture2D);
+                        break;
+                    case "Turtle":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Turtle/turtle1") as Texture2D);
+                        break;
+                    case "Dino":
+                        animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Dino/Dino1") as Texture2D);
+                        break;
+                }
+            }
+
+            
+
         }
 
         void Update()
@@ -42,7 +85,7 @@ namespace Morphie
                 }
             }
 
-            if (Input.GetKeyDown("2"))
+            if (Input.GetKeyDown("2")) //Måske brug else if
             {
                 if (player.shape == 2)
                 {
@@ -121,9 +164,14 @@ namespace Morphie
 
             //MAIN GUI BEGIN
             GUI.BeginGroup(new Rect(0, Screen.height - (Screen.height * 0.2f), Screen.width, Screen.height));
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), bgTex, ScaleMode.StretchToFill, true, 0.0F);
+
             GUI.Box(new Rect(0, 0, Screen.width, Screen.height), guiTex);
 
+            
+            
             Rect r1 = new Rect(0, 0, 100, 100);
+            GUI.DrawTexture(r1, animalListTex[0], ScaleMode.StretchToFill, true, 0.0F);
             GUI.Button(r1, "1");
 
             if (mouseDown == true && r1.Contains(Event.current.mousePosition))
@@ -139,6 +187,7 @@ namespace Morphie
             }
 
             Rect r2 = new Rect(150, 0, 100, 100);
+            GUI.DrawTexture(r2, animalListTex[1], ScaleMode.StretchToFill, true, 0.0F);
             GUI.Button(r2, "2");
             if (mouseDown == true && r2.Contains(Event.current.mousePosition))
             {
@@ -153,6 +202,7 @@ namespace Morphie
             }
 
             Rect r3 = new Rect(300, 0, 100, 100);
+            GUI.DrawTexture(r3, animalListTex[2], ScaleMode.StretchToFill, true, 0.0F);
             GUI.Button(r3, "3");
             if (mouseDown == true && r3.Contains(Event.current.mousePosition))
             {
@@ -167,6 +217,7 @@ namespace Morphie
             }
 
             Rect r4 = new Rect(450, 0, 100, 100);
+            GUI.DrawTexture(r4, animalListTex[3], ScaleMode.StretchToFill, true, 0.0F);
             GUI.Button(r4, "4");
             if (mouseDown == true && r4.Contains(Event.current.mousePosition))
             {

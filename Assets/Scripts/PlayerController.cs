@@ -77,7 +77,7 @@ namespace Morphie
 
         public void UseAbility()
         {
-            if (!this.isDead && !abilitiesLocked)
+            if (!isDead && !abilitiesLocked)
             {
                 //switch (shape)
                 //{

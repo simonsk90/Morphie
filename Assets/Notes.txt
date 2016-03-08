@@ -1,3 +1,6 @@
+
+Lav en liste over de animals som er i brug, så man ikke skal GetComponent<MonkeyFinctions>() != null   f.eks. med list.Contains("monkey")
+
 Ret edge colliders så de passer.
 
 Ret så bagenden af player ikke kan collide med ground/rock ved f.eks. fald. (Men hvordan skal disruption så fungere?)

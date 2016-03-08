@@ -1,2 +1,2 @@
-Objects are being set inactive a little too soon sometimes, after they have been passed.
+Acid dræber ikke
 Goal is always active, guess checkpoints are as well
