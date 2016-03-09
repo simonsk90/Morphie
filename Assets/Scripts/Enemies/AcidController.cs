@@ -8,8 +8,10 @@ namespace Morphie
     {
         private PlayerController player;
 
-        void OnTriggerStay2D(Collider2D coll)
+        void OnTriggerEnter2D(Collider2D coll)
         {
+            Debug.Log("Acid");
+
             if (coll.gameObject.tag == "Player" && !player.invulnerable)
             {
                 player.StartCoroutine(player.Die2());

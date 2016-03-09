@@ -9,10 +9,10 @@ namespace Morphie
     {
         private PlayerController player;
         private bool cooldown;
-        private List<Vector2> positionList = new List<Vector2>();
-        private List<Bounds> boundsList = new List<Bounds>();
+        //private List<Vector2> positionList = new List<Vector2>();
+        //private List<Bounds> boundsList = new List<Bounds>();
+        private List<KeyValuePair<Vector2, Bounds>> trackList = new List<KeyValuePair<Vector2, Bounds>>();
         public bool reversing = false;
-
 
         void Awake()
         {
@@ -22,7 +22,8 @@ namespace Morphie
         void Start()
         {
             StartCoroutine(HelperFunctions.Cooldown(7f, x => cooldown = x));
-            StartCoroutine(Track());
+            //StartCoroutine(Track());
+            Track();
         }
 
         public void ChangeShape()
@@ -45,9 +46,11 @@ namespace Morphie
         {
             if (!cooldown)
             {
-                StartCoroutine(Move(positionList[0], boundsList[0]));
-                positionList.Clear();
-                boundsList.Clear();
+                //StartCoroutine(Move(positionList[0], boundsList[0]));
+                StartCoroutine(Move(trackList[0].Key, trackList[0].Value));
+                trackList.Clear();
+                //positionList.Clear();
+                //boundsList.Clear();
             }
         }
 
@@ -108,7 +111,7 @@ namespace Morphie
 
             foreach (GameObject go in ObjectsController.inactiveObjects)
             {
-                if (go.transform.position.x > target.x - 5f && go.tag != "Enemy" && go.tag != "Pickup" && go.tag != "Untagged")
+                if (go.transform.position.x > target.x - 5f && go.tag != "Enemy" && go.tag != "Untagged")
                 {
                     go.SetActive(true);
                     //oldObjects.Add(go);
@@ -164,25 +167,29 @@ namespace Morphie
             return newTarget;
         }
 
-        IEnumerator Track()
+        private void Track()
         {
-            float timer = 0f;
+            //float timer = 0f;
 
-            positionList.Add(player.playerTransform.position);
-            boundsList.Add(player.playerCollider.bounds);
 
-            if (positionList.Count > 10)
+            trackList.Add(new KeyValuePair<Vector2, Bounds>(player.playerTransform.position, player.playerCollider.bounds));
+            //positionList.Add(player.playerTransform.position);
+            //boundsList.Add(player.playerCollider.bounds);
+
+            if (trackList.Count > 10) //Bør måske gøres inden man adder
             {
-                positionList.RemoveAt(0);
-                boundsList.RemoveAt(0);
+                trackList.RemoveAt(0);
+                //positionList.RemoveAt(0);
+                //boundsList.RemoveAt(0);
             }
 
-            while (timer < 0.5f)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            StartCoroutine(Track());
+            //while (timer < 0.5f)
+            //{
+            //    timer += Time.deltaTime;
+            //    yield return null;
+            //}
+            //StartCoroutine(Track());
+            StartCoroutine(HelperFunctions.AddDelay(0.5f, Track)); //Har ikke testet om dette er ligeså præcis som den forrige måde, ovenfor.
         }
 
         private void ToggleAnimalStuff(bool activate, int animal)
@@ -220,11 +227,11 @@ namespace Morphie
 
         private void DebugPositionList()
         {
-            foreach (Vector2 pos in positionList)
-            {
-                Debug.Log(pos);
-            }
-            Debug.Log("Target: " + positionList[positionList.Count - 10]);
+            //foreach (Vector2 pos in positionList)
+            //{
+            //    Debug.Log(pos);
+            //}
+            //Debug.Log("Target: " + positionList[positionList.Count - 10]);
         }
     }
 }

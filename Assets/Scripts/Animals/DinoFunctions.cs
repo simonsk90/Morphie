@@ -67,6 +67,14 @@ namespace Morphie
                     detector.transform.position = new Vector2(detector.transform.position.x, detector.transform.position.y - diff);
                 }
 
+                //if (AnimalContainer.animalsInUse.Contains(5))   //TROR DENNE HER SKAL BRUGES FREMFOR DEN NEDENUNDER
+                //{
+                //    if (!player.GetComponent<MonkeyFunctions>().reversing)
+                //    {
+                //        ToggleDetector(true);
+                //    }
+                //}
+
                 if (player.GetComponent<MonkeyFunctions>() != null)
                 {
                     if (!player.GetComponent<MonkeyFunctions>().reversing)

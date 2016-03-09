@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Morphie
 {
@@ -8,6 +9,7 @@ namespace Morphie
     {
         private static IAnimalFunctions a1, a2, a3, a4;
         private static IAnimalFunctions currentAnimal;
+        public static List<int> animalsInUse = new List<int>();
 
         public static void InitializeAnimals()
         {
@@ -16,6 +18,44 @@ namespace Morphie
             a3 = HelperFunctions.player.playerGameObject.AddComponent(System.Type.GetType("Morphie." + PlayerPrefs.GetString("animal3") + "Functions")) as IAnimalFunctions;
             a4 = HelperFunctions.player.playerGameObject.AddComponent(System.Type.GetType("Morphie." + PlayerPrefs.GetString("animal4") + "Functions")) as IAnimalFunctions;
             currentAnimal = a1;
+
+            animalsInUse.Clear();
+
+            for (int i = 1; i < 5; i++)
+            {
+                switch (PlayerPrefs.GetString("animal" + i))
+                {
+
+                    case "Sheep":
+                        animalsInUse.Add(1);
+                        break;
+                    case "Bird":
+                        animalsInUse.Add(2);
+                        break;
+                    case "Cow":
+                        animalsInUse.Add(3);
+                        break;
+                    case "Pig":
+                        animalsInUse.Add(4);
+                        break;
+                    case "Monkey":
+                        animalsInUse.Add(5);
+                        break;
+                    case "Panda":
+                        animalsInUse.Add(6);
+                        break;
+                    case "Cat":
+                        animalsInUse.Add(7);
+                        break;
+                    case "Turtle":
+                        animalsInUse.Add(8);
+                        break;
+                    case "Dino":
+                        animalsInUse.Add(9);
+                        break;
+                }
+            }
+
         }
 
         //ANIMAL 1

@@ -141,12 +141,12 @@ namespace Morphie
 
         }
 
-        public static IEnumerator AddDelay(int seconds, CallBack cb)
+        public static IEnumerator AddDelay(float seconds, CallBack cb_opt = null)
         {
             //Debug.Log ("Delay");
             yield return new WaitForSeconds(seconds);
 
-            cb();
+            cb_opt();
         }
 
         //public static void MakeDisappear(GameObject go) //Skal måske også fjerne go's children
@@ -171,12 +171,14 @@ namespace Morphie
         {
             setCooldown(true);
 
-            float timer = 0f;
-            while (timer < duration)
-            {
-                timer += Time.deltaTime;
-                yield return null;
-            }
+            //float timer = 0f;
+            //while (timer < duration)
+            //{
+            //    timer += Time.deltaTime;
+            //    yield return null;
+            //}
+
+            yield return new WaitForSeconds(duration);
 
             setCooldown(false);
         }

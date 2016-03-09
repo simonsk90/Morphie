@@ -27,36 +27,36 @@ namespace Morphie
             player = HelperFunctions.player;
             animal1Tex = Resources.Load("StickmanWalk01") as Texture2D;
 
-            for (int i = 1; i < 5; i++)
+            for (int i = 0; i < 4; i++)
             {
-                switch (PlayerPrefs.GetString("animal" + i))
+                switch (AnimalContainer.animalsInUse[i])
                 {
 
-                    case "Sheep":
+                    case 1:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Sheep/StickmanWalk01") as Texture2D);
                         break;
-                    case "Bird":
+                    case 2:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Bird/chick1") as Texture2D);
                         break;
-                    case "Cow":
+                    case 3:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Cow/cattle1") as Texture2D);
                         break;
-                    case "Pig":
+                    case 4:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Pig/pork1") as Texture2D);
                         break;
-                    case "Monkey":
+                    case 5:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Monkey/Monkey1") as Texture2D);
                         break;
-                    case "Panda":
+                    case 6:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Panda/PandaWalk1") as Texture2D);
                         break;
-                    case "Cat":
+                    case 7:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Cat/Cat1") as Texture2D);
                         break;
-                    case "Turtle":
+                    case 8:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Turtle/turtle1") as Texture2D);
                         break;
-                    case "Dino":
+                    case 9:
                         animalListTex.Add(Resources.Load("Graphics/Textures/Animals/Dino/Dino1") as Texture2D);
                         break;
                 }

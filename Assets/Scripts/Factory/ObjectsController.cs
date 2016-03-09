@@ -134,14 +134,15 @@ namespace Morphie
 
         public static IEnumerable<GameObject> GetPassedObjects()
         {
-            if (player.GetComponent<MonkeyFunctions>() != null)
-            {
-                if (!player.GetComponent<MonkeyFunctions>().reversing)
-                {
+            //if (player.GetComponent<MonkeyFunctions>() != null)
+            //{
+            //    if (!player.GetComponent<MonkeyFunctions>().reversing)
+            //    {
                     foreach (GameObject go in activeObjects)
                     {
-                        if (cam.WorldToScreenPoint(go.transform.position).x < -20f)
-                        {
+                //if (cam.WorldToScreenPoint(go.transform.position).x < -20f)
+                    if (cam.WorldToScreenPoint(go.transform.position).x < cam.pixelWidth * -1f)
+                    {
                             passedObjects.Add(go);
                             yield return go;
                         }
@@ -158,13 +159,16 @@ namespace Morphie
                         inactiveObjects.Add(go);
                     }
 
-                    passedObjects.Clear();
-                }
-            }
-            else
-            {
-                //return null;
-            }
+            passedObjects.Clear(); 
+            //    }
+            //}
+            //else
+            //{
+
+
+
+            //    //return null;
+            //}
         }
     }
 }
