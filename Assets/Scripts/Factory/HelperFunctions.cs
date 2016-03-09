@@ -197,5 +197,10 @@ namespace Morphie
             }
         }
 
+        public static void DrawTextMessage(string text)
+        {
+            //TextBoxPopUp.UpdateTextBox(text);
+        }
+
     }
 }
