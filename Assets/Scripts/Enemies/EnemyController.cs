@@ -10,20 +10,18 @@ namespace Morphie
         {
             if (coll.gameObject.tag == "Player")
             {
+
                 if (player.playerRigidBody.isKinematic == true)
                 {
                     GetComponent<Rigidbody2D>().isKinematic = true;
                 }
 
-                if (player.anim.GetInteger("shape") == 9)
+                if (cf != null && cf.hitting)
                 {
                     gameObject.SetActive(false);
                 }
-                else if (cf != null && cf.hitting)
-                {
-                    gameObject.SetActive(false);
-                }
-                else
+
+                else if(!player.invulnerable) //DIE
                 {
                     player.StartCoroutine(player.Die2());
                     speed = 0f;

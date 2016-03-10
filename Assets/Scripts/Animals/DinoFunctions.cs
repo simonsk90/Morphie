@@ -34,12 +34,12 @@ namespace Morphie
             dBot = detector.transform.FindChild("DetectorBottom").GetComponent<Collider2D>() as BoxCollider2D;
             dBot.transform.localScale = new Vector2(player.transform.localScale.x, player.transform.localScale.y);
             dBot.size = new Vector2(newSize.x, Mathf.Abs(newSize.y - dMain.size.y) * 0.5f);
-            dBot.transform.position = new Vector2(0f, dMain.bounds.min.y - dBot.size.y * 0.5f);
+            dBot.transform.position = new Vector2(2.37f, dMain.bounds.min.y - dBot.size.y * 0.5f);
 
             dTop = detector.transform.FindChild("DetectorTop").GetComponent<Collider2D>() as BoxCollider2D;
             dTop.transform.localScale = new Vector2(player.transform.localScale.x, player.transform.localScale.y);
             dTop.size = new Vector2(newSize.x, Mathf.Abs(newSize.y - dMain.size.y) * 0.5f);
-            dTop.transform.position = new Vector2(0f, dMain.bounds.max.y + dTop.size.y * 0.5f);
+            dTop.transform.position = new Vector2(2.37f, dMain.bounds.max.y + dTop.size.y * 0.5f); //Ved ikke lige hvorfor 2.37f give ikke mening. Men så sidder den korrekt
 
             ToggleDetector(false);
         }
@@ -52,11 +52,18 @@ namespace Morphie
 
         public void ChangeShape()
         {
+            
             if (!activated)
             {
-                float diff = Mathf.Abs(player.playerCollider.bounds.min.y - dBot.bounds.min.y);
+                Debug.Log("After pause");
+                //float diff = Mathf.Abs(player.playerCollider.bounds.min.y - dBot.bounds.min.y);
+                float diff = Mathf.Abs((player.playerTransform.position.y - player.playerCollider.size.y * 0.5f) - (dBot.transform.position.y - dBot.GetComponent<BoxCollider2D>().size.y * 0.5f));
+                //float diffReverse = Mathf.Abs(player.playerCollider.bounds.max.y - dBot.bounds.max.y);
+                //float diffReverse = Mathf.Abs((player.playerTransform.position.y + player.playerCollider.size.y * 0.5f) + (dTop.transform.position.y + dTop.GetComponent<BoxCollider2D>().size.y * 0.5f));
 
                 player.invulnerable = true;
+
+
 
                 if (!player.reverseGravity)
                 {
@@ -64,7 +71,7 @@ namespace Morphie
                 }
                 else
                 {
-                    detector.transform.position = new Vector2(detector.transform.position.x, detector.transform.position.y - diff);
+                    detector.transform.position = new Vector2(detector.transform.position.x, detector.transform.position.y - diff + player.playerCollider.size.y - dBot.size.y); //Fejl i diff udregning tror jeg, men det bliver en lappeløsning her
                 }
 
                 //if (AnimalContainer.animalsInUse.Contains(5))   //TROR DENNE HER SKAL BRUGES FREMFOR DEN NEDENUNDER
@@ -120,7 +127,7 @@ namespace Morphie
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
-
+            //UnityEditor.EditorApplication.isPaused = true;
             HelperFunctions.CorrectShapePosition(9, newSize);
             detector.transform.position = player.playerTransform.position;
         }

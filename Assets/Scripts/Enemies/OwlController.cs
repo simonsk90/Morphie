@@ -16,11 +16,7 @@ namespace Morphie
                     GetComponent<Rigidbody2D>().isKinematic = true;
                 }
 
-                if (player.anim.GetInteger("shape") == 9)
-                {
-                    gameObject.SetActive(false);
-                }
-                else if (cf != null && cf.hitting)
+                if (cf != null && cf.hitting)
                 {
                     gameObject.SetActive(false);
                 }

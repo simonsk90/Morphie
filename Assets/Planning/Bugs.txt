@@ -1,2 +1,1 @@
-Acid dræber ikke
-Goal is always active, guess checkpoints are as well
+Dino rykker bagud på x ved changeshape
