@@ -1,10 +1,11 @@
 using UnityEngine;
-using System.Collections;
+using System.Collections; 
 using System.Collections.Generic;
 
 namespace Morphie
 {
 
+<<<<<<< HEAD
     public static class ObjectsController
     {
 
@@ -27,6 +28,20 @@ namespace Morphie
             incomingObjects.Clear();
 
             foreach (GameObject obj in GameObject.FindObjectsOfType(typeof(GameObject)))  //Gør måske alt dette under awake()
+=======
+    public class ObjectsController : MonoBehaviour
+    {
+
+        public static List<GameObject> activeObjects = new List<GameObject>();
+        public static List<GameObject> inactiveObjects = new List<GameObject>();
+        private static List<GameObject> passedObjects = new List<GameObject>();
+        private static List<GameObject> incomingObjects = new List<GameObject>();
+        private Camera cam;
+
+        void Awake()
+        {
+            foreach (GameObject obj in FindObjectsOfType(typeof(GameObject)))  //Gør måske alt dette under awake()
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
             {
                 if (obj.tag != "Untagged" && obj.tag != "Player" && obj.tag != "MainCamera")
                 {
@@ -38,8 +53,18 @@ namespace Morphie
             {
                 return (g1.transform.position.x).CompareTo(g2.transform.position.x);
             });
+<<<<<<< HEAD
 
             //start begin
+=======
+        }
+
+        // Use this for initialization
+        void Start()
+        {
+            cam = CameraController.cam;
+
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
             DeactivatePassedObjects();
 
             //Debug.Log(player.cam.cam.pixelWidth);
@@ -55,6 +80,7 @@ namespace Morphie
             }
 
             ActivateIncomingObjects();
+<<<<<<< HEAD
         }
 
         //void Awake()
@@ -101,6 +127,18 @@ namespace Morphie
         // Update is called once per frame
 
         private static void ActivateIncomingObjects()
+=======
+
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        private void ActivateIncomingObjects()
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         {
             for (int x = 0; x < incomingObjects.Count; x++)
             {
@@ -119,16 +157,24 @@ namespace Morphie
                 }
             }
 
+<<<<<<< HEAD
             player.StartCoroutine(HelperFunctions.AddDelay(2, ActivateIncomingObjects));
         }
 
         public static void DeactivatePassedObjects() //FIND UD AF OM DET ER MERE EFFEKTIVT AT BRUGE ITERATOR ELLER STANDARD LOOP   WHY PUBLIC?
+=======
+            StartCoroutine(HelperFunctions.AddDelay(2, ActivateIncomingObjects));
+        }
+
+        public void DeactivatePassedObjects() //FIND UD AF OM DET ER MERE EFFEKTIVT AT BRUGE ITERATOR ELLER STANDARD LOOP
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         {
             foreach (GameObject go in GetPassedObjects())
             {
                 go.SetActive(false);
             }
 
+<<<<<<< HEAD
             player.StartCoroutine(HelperFunctions.AddDelay(2, DeactivatePassedObjects));
         }
 
@@ -143,6 +189,21 @@ namespace Morphie
                 //if (cam.WorldToScreenPoint(go.transform.position).x < -20f)
                     if (cam.WorldToScreenPoint(go.transform.position).x < cam.pixelWidth * -1f)
                     {
+=======
+            StartCoroutine(HelperFunctions.AddDelay(2, DeactivatePassedObjects));
+        }
+
+        public IEnumerable<GameObject> GetPassedObjects()
+        {
+            if (PlayerController.playerGameObject.GetComponent<MonkeyFunctions>() != null)
+            {
+                if (!MonkeyFunctions.reversing)
+                {
+                    foreach (GameObject go in activeObjects)
+                    {
+                        if (cam.WorldToScreenPoint(go.transform.position).x < -20f)
+                        {
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
                             passedObjects.Add(go);
                             yield return go;
                         }
@@ -159,6 +220,7 @@ namespace Morphie
                         inactiveObjects.Add(go);
                     }
 
+<<<<<<< HEAD
             passedObjects.Clear(); 
             //    }
             //}
@@ -169,6 +231,15 @@ namespace Morphie
 
             //    //return null;
             //}
+=======
+                    passedObjects.Clear();
+                }
+            }
+            else
+            {
+                //return null;
+            }
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         }
     }
 }

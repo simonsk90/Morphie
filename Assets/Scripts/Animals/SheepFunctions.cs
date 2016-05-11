@@ -6,6 +6,7 @@ namespace Morphie
 
     public class SheepFunctions : MonoBehaviour, IAnimalFunctions
     {
+<<<<<<< HEAD
 
         private PlayerController player;
 
@@ -19,6 +20,8 @@ namespace Morphie
 
         }
 
+=======
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         public void ChangeShape()
         {
             Vector2 newSize = new Vector2(0.41f, 0.5f);
@@ -37,17 +40,29 @@ namespace Morphie
 
         public void Ability()
         {
+<<<<<<< HEAD
             if (HelperFunctions.CheckOnGround(player.gameObject as GameObject))
             {
                 player.playerRigidBody.AddForce(Vector2.up * 240f); //Rewrite to not use force
+=======
+            if (HelperFunctions.CheckOnGround(PlayerController.playerGameObject))
+            {
+                PlayerController.playerRigidBody.AddForce(Vector2.up * 240f); //Rewrite to not use force
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
             }
 
             else if (HelperFunctions.CheckOnCeiling())
             {
+<<<<<<< HEAD
                 player.playerRigidBody.AddForce(-Vector2.up * 240f); //Rewrite to not use force
             }
 
         }
 
+=======
+                PlayerController.playerRigidBody.AddForce(-Vector2.up * 240f); //Rewrite to not use force
+            }
+        }
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
     }
 }

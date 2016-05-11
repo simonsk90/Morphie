@@ -7,13 +7,19 @@ namespace Morphie
     public class TurtleFunctions : MonoBehaviour, IAnimalFunctions
     {
 
+<<<<<<< HEAD
         private PlayerController player;
+=======
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         private GameObject[] enemies;
         private bool cooldown = false;
 
         void Awake()
         {
+<<<<<<< HEAD
             player = HelperFunctions.player;
+=======
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
             enemies = GameObject.FindGameObjectsWithTag("Enemy");
         }
 
@@ -72,5 +78,20 @@ namespace Morphie
                 ec.speed = ec.speed * 2.5f;
             }
         }
+<<<<<<< HEAD
+=======
+
+        IEnumerator Cooldown()
+        {
+            cooldown = true;
+            float timer = 0f;
+            while (timer < 10f)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+            cooldown = false;
+        }
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
     }
 }

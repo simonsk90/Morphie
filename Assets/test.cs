@@ -26,15 +26,35 @@ namespace Morphie
         void Start()
         {
 
+<<<<<<< HEAD
+=======
+        }
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
+
+        void FixedUpdate()
+        {
 
 
-
+<<<<<<< HEAD
 
 
         }
 
         void FixedUpdate()
         {
+=======
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+            if (collider1 != null)
+                if (this.GetComponent<Collider2D>().bounds.Intersects(collider1.bounds))
+                    speed = 0f;
+            transform.Translate(Vector2.up * speed * Time.deltaTime);
+
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
 
 
         }
@@ -49,11 +69,14 @@ namespace Morphie
             transform.Translate(Vector2.up * speed * Time.deltaTime);
 
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
         }
     }
 }

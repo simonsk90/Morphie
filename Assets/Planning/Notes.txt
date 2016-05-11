@@ -1,4 +1,16 @@
 
+<<<<<<< HEAD
+=======
+02-03-2016
+
+Skift anim.GetInteger calls til i stedet at referere til en int i PlayerController
+Lav Structs fremfor class i simple classes
+
+
+
+
+OLD BeLOW THIS
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
 
 Ret edge colliders så de passer.
 

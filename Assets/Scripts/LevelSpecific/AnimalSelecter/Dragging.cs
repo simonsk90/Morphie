@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections; 
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
@@ -171,4 +171,27 @@ namespace Morphie
         }
 
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> cbc097dea2e2517c93ae48d526725ced03c64d67
