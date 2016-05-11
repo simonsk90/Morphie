@@ -10,7 +10,7 @@ namespace Morphie
     public class PlayerController : MonoBehaviour
     {
         public bool isDead = false;
-        public float speed = 2f; //2
+        public float speed = 3f; //2
         public float stamina = 0;
         public int lives = 3; //Maybe remove and only use PlayerPrefs(lives)
         public Animator anim;
